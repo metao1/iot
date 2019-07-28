@@ -27,13 +27,13 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CommonModule} from "@angular/common";
 import {LoginModule} from "app/main/login/login.module";
-import {ToasterModule} from "@persoinfo/components/toaster/toaster.module";
-import {ComponentsModule} from "@persoinfo/components/components.module";
 import {ErrorHandlerInterceptor} from "@persoinfo/services/authentication/interceptor/errorhandler.interceptor";
 import {AuthExpiredInterceptor} from "@persoinfo/services/authentication/interceptor/auth-expired.interceptor";
 import {NotificationInterceptor} from "@persoinfo/services/authentication/interceptor/notification.interceptor";
 import {UserRouteAccessService} from "@persoinfo/services/authentication";
 import {AuthInterceptor} from "@persoinfo/services/authentication/interceptor/auth.interceptor";
+import {AppsModule} from "./main/apps/apps.module";
+import {DashboardModule} from "./main/apps/dashboard/dashboard.module";
 
 const appRoutes: Routes = [
     {
@@ -87,6 +87,7 @@ const appRoutes: Routes = [
     imports: [
         CommonModule,
         BrowserModule,
+        AppsModule,
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
@@ -117,8 +118,7 @@ const appRoutes: Routes = [
         LoginModule,
         // App modules
         AppStoreModule,
-        ComponentsModule,
-        ToasterModule
+        DashboardModule
     ],
     bootstrap: [
         AppComponent
