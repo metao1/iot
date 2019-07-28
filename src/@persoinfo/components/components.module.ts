@@ -14,14 +14,12 @@ import {SimpleLoaderComponent} from '@persoinfo/components/simple-loader/simple-
 import {PageLoaderComponent} from '@persoinfo/components/page-loader/page-loader.component';
 import {ModalConfirmComponent} from '@persoinfo/components/modal-confirm/modal-confirm.component';
 import {FileUploaderComponent} from '@persoinfo/components/file-uploader/file-uploader.component';
-import {ContentModule} from "@persoinfo/components/content/content.module";
 
 @NgModule({
     imports: [
         CommonModule,
         FileUploadModule,
         FormsModule,
-        ContentModule,
         ReactiveFormsModule,
     ],
     exports: [
@@ -37,7 +35,6 @@ import {ContentModule} from "@persoinfo/components/content/content.module";
         PanelListGroupComponent,
         ReactiveFormsModule,
         RouterModule,
-        ContentModule,
         SimpleLoaderComponent,
         UnauthorizedComponent,
         ModalConfirmComponent
