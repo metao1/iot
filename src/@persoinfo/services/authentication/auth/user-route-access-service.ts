@@ -3,6 +3,7 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {StateStorageService} from './state-storage.service';
 import {AccountService} from "./account.service";
 import {Location} from "@angular/common";
+import {Observable} from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class UserRouteAccessService implements CanActivate {
@@ -28,7 +29,7 @@ export class UserRouteAccessService implements CanActivate {
                 this.router.navigateByUrl('login');
             }
             if (!authorities || authorities.length === 0) {
-                return true;
+                return false;
             }
 
             if (account) {

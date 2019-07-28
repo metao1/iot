@@ -40,4 +40,8 @@ export class LoginService {
             resolve();
         });
     };
+
+    isLoggedIn(): boolean {
+        return this.authServerProvider.getToken() !== null;
+    }
 }
