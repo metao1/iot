@@ -2,13 +2,11 @@ import { HttpInterceptor, HttpRequest, HttpResponse, HttpHandler, HttpEvent } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {JhiAlertService} from "ng-jhipster";
-import {AlertPromise} from "selenium-webdriver";
-import {AlertComponent} from "../../../@persoinfo/components/alert/alert.component";
+import {AlertService} from "@persoinfo/services/alert.service";
 
 @Injectable()
 export class NotificationInterceptor implements HttpInterceptor {
-  constructor(private alertService: AlertComponent) {}
+  constructor(private alertService: AlertService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(

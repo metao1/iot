@@ -1,5 +1,5 @@
 <!-- BEGIN : LOGIN-FORM COMPONENT -->
-<form (ngSubmit)="submit(form.value)" [formGroup]="form" novalidate>
+<form (ngSubmit)="submit(loginForm.value)" [formGroup]="loginForm" novalidate>
 
   <!-- BEGIN : ERROR OUTPUT -->
   <app-alert *ngIf="errorShown"
@@ -8,7 +8,7 @@
 
   <!-- INPUT USERNAME -->
   <div class="form-group"
-       [ngClass]="{'has-warning':!form.controls['username'].valid && form.controls['username'].touched}">
+       [ngClass]="{'has-warning':!loginForm.controls['username'].valid && loginForm.controls['username'].touched}">
     <label class="sr-only"
            for="username">Username</label>
 
@@ -28,7 +28,7 @@
 
   <!-- INPUT PASSWORD -->
   <div class="form-group"
-       [ngClass]="{'has-warning':!form.controls['password'].valid && form.controls['password'].touched}" >
+       [ngClass]="{'has-warning':!loginForm.controls['password'].valid && loginForm.controls['password'].touched}" >
     <label class="sr-only"
            for="password">Password</label>
 
@@ -50,7 +50,7 @@
   <div class="form-group">
     <button type="submit"
             class="col-xs-6 btn btn-default-darker"
-            [disabled]="!form.valid">
+            [disabled]="!loginForm.valid">
       Login
     </button>
     <button type="reset"

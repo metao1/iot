@@ -17,8 +17,7 @@ export class AuthServerProvider {
   login(credentials): Observable<any> {
     const data = {
       username: credentials.username,
-      password: credentials.password,
-      rememberMe: credentials.rememberMe
+      password: credentials.password
     };
     return this.http.post(SERVER_API_URL+ '/authenticate', data, { observe: 'response' })
         .pipe(map(authenticateSuccess.bind(this)));
@@ -38,7 +37,7 @@ export class AuthServerProvider {
       this.storeAuthenticationToken(jwt, rememberMe);
       return Promise.resolve(jwt);
     } else {
-      return Promise.reject('auth-jwt-service Promise reject'); // Put appropriate error message here
+      return Promise.reject('loginService-jwt-service Promise reject'); // Put appropriate error message here
     }
   }
 

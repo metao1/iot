@@ -1,10 +1,9 @@
 import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
-import { LoginModalService } from 'app/core';
 import { PasswordResetFinishService } from './password-reset-finish.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
   error: string;
   keyMissing: boolean;
   success: string;
-  modalRef: NgbModalRef;
   key: string;
 
   passwordForm = this.fb.group({
@@ -26,8 +24,8 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
 
   constructor(
     private passwordResetFinishService: PasswordResetFinishService,
-    private loginModalService: LoginModalService,
     private route: ActivatedRoute,
+    private router: Router,
     private elementRef: ElementRef,
     private renderer: Renderer,
     private fb: FormBuilder
@@ -67,6 +65,6 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
   }
 
   login() {
-    this.modalRef = this.loginModalService.open();
+      this.router.navigateByUrl('login');
   }
 }

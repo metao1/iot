@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-
-import {AccountService, JhiLanguageHelper} from 'app/core';
+import {AccountService} from "@persoinfo/services/authentication";
 
 @Component({
   selector: 'jhi-settings',
@@ -25,15 +24,11 @@ export class SettingsComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private fb: FormBuilder,
-    private languageHelper: JhiLanguageHelper
   ) {}
 
   ngOnInit() {
     this.accountService.identity().then(account => {
       this.updateForm(account);
-    });
-    this.languageHelper.getAll().then(languages => {
-      this.languages = languages;
     });
   }
 

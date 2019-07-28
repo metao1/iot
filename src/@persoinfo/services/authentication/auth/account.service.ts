@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {SessionStorageService} from 'ngx-webstorage';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-import {Account} from 'app/core/user/account.model';
-import {SERVER_API_URL} from "../../app.constants";
+import {Account} from '@persoinfo/services/authentication/user/account.model';
+import {SERVER_API_URL} from "app/app.constants";
 
 @Injectable({providedIn: 'root'})
 export class AccountService {

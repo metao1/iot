@@ -4,8 +4,8 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 import {EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE} from '@persoinfo/shared';
-import {LoginModalService} from 'app/core';
 import {Register} from './register.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'jhi-register',
@@ -27,9 +27,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     });
 
     constructor(
-        private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
+        private router: Router,
         private renderer: Renderer,
         private fb: FormBuilder
     ) {
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     }
 
     openLogin() {
-        this.modalRef = this.loginModalService.open();
+        this.router.navigateByUrl('login');
     }
 
     private processError(response: HttpErrorResponse) {

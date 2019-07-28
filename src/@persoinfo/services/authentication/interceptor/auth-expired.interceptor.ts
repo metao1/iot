@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
-import {LoginService} from 'app/core/login/login.service';
 import {Router} from "@angular/router";
+import {LoginService} from "@persoinfo/services/authentication/login/login.service";
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
@@ -19,7 +19,7 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
                     if (err instanceof HttpErrorResponse) {
                         if (err.status === 401) {
                             this.loginService.logout().then(() => {
-                                this.router.navigate(['/auth/login']);
+                                this.router.navigate(['/loginService/login']);
                             });
                         }
                     }

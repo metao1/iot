@@ -10,7 +10,8 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
 } from '@angular/material';
 import {TranslateModule} from '@ngx-translate/core';
 import 'hammerjs';
@@ -21,11 +22,6 @@ import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {persoInfoConfig} from 'app/persoinfo-config';
 import {AppComponent} from 'app/app.component';
 import {AppStoreModule} from 'app/store/store.module';
-import {AuthInterceptor} from "app/core/interceptor/auth.interceptor";
-import {AuthExpiredInterceptor} from "app/core/interceptor/auth-expired.interceptor";
-import {ErrorHandlerInterceptor} from "app/core/interceptor/errorhandler.interceptor";
-import {NotificationInterceptor} from "app/core/interceptor/notification.interceptor";
-import {UserRouteAccessService} from "app/core";
 import {NgxWebstorageModule} from "ngx-webstorage";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -33,6 +29,11 @@ import {CommonModule} from "@angular/common";
 import {LoginModule} from "app/main/login/login.module";
 import {ToasterModule} from "@persoinfo/components/toaster/toaster.module";
 import {ComponentsModule} from "@persoinfo/components/components.module";
+import {ErrorHandlerInterceptor} from "@persoinfo/services/authentication/interceptor/errorhandler.interceptor";
+import {AuthExpiredInterceptor} from "@persoinfo/services/authentication/interceptor/auth-expired.interceptor";
+import {NotificationInterceptor} from "@persoinfo/services/authentication/interceptor/notification.interceptor";
+import {UserRouteAccessService} from "@persoinfo/services/authentication";
+import {AuthInterceptor} from "@persoinfo/services/authentication/interceptor/auth.interceptor";
 
 const appRoutes: Routes = [
     {
@@ -100,6 +101,7 @@ const appRoutes: Routes = [
         MatCheckboxModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSnackBarModule,
         MatIconModule,
         BrowserModule,
         BrowserAnimationsModule,
