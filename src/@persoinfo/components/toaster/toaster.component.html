@@ -1,0 +1,7 @@
+<div class="toaster" [ngClass]="location">
+  <div class="col-xs-12" *ngFor="let message of messages">
+    <app-toast-message
+        [message]="message">
+    </app-toast-message>
+  </div>
+</div>
