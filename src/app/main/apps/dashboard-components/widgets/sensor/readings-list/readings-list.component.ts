@@ -1,4 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {HumiditySensor} from "@persoinfo/model/rpicomponent/humidity-sensor/humidity-sensor.model";
+import {MoistureSensor} from "@persoinfo/model/rpicomponent/moisture-sensor/moisture-sensor.model";
+import {ProximitySensor} from "@persoinfo/model/rpicomponent/proximity-sensor/proximity-sensor.model";
+import {TemperatureSensor} from "@persoinfo/model/rpicomponent/temperature-sensor/temperature-sensor.model";
 
 /*
 import {HumiditySensor} from 'app/main/shared/model/rpicomponent/humidity-sensor/humidity-sensor.model';
@@ -21,10 +25,10 @@ import {ToastType} from '@app/core/component/toaster/toast-type.enum';
 })
 export class ReadingsListComponent implements OnInit, OnDestroy {
 
- /* humidity: Array<HumiditySensor>;
+  humidity: Array<HumiditySensor>;
   moisture: Array<MoistureSensor>;
   proximity: Array<ProximitySensor>;
-  temperature: Array<TemperatureSensor>;*/
+  temperature: Array<TemperatureSensor>;
 
   @Input()
   heading: string = 'Current Readings';
