@@ -25,10 +25,10 @@ import {ToastType} from '@app/core/component/toaster/toast-type.enum';
 })
 export class ReadingsListComponent implements OnInit, OnDestroy {
 
-  humidity: Array<HumiditySensor>;
-  moisture: Array<MoistureSensor>;
-  proximity: Array<ProximitySensor>;
-  temperature: Array<TemperatureSensor>;
+  humidity: HumiditySensor[];
+  moisture: MoistureSensor[];
+  proximity: ProximitySensor[];
+  temperature: TemperatureSensor[];
 
   @Input()
   heading: string = 'Current Readings';
