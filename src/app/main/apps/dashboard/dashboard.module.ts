@@ -8,16 +8,18 @@ import {DashboardComponentsModule} from "app/main/apps/dashboard-components/dash
 import {ComponentsModule} from "@persoinfo/components/components.module";
 
 @NgModule({
-  imports: [
-    DashboardComponentsModule,
-    ComponentsModule,
-    RouterModule.forChild(DASHBOARD_ROUTES)
-  ],
-  exports: [
-    DashboardComponent
-  ],
-  declarations: [
-    DashboardComponent
-  ]
+
+    imports: [
+        DashboardComponentsModule,
+        ComponentsModule,
+        RouterModule.forChild(DASHBOARD_ROUTES)
+    ],
+    exports: [
+        DashboardComponent
+    ],
+    declarations: [
+        DashboardComponent
+    ]
 })
-export class DashboardModule {}
+export class DashboardModule {
+}

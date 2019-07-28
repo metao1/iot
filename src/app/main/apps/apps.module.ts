@@ -3,6 +3,7 @@ import {RouterModule} from '@angular/router';
 
 import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {EventManager} from "@persoinfo/event/EventManager";
+import {DashboardModule} from "./dashboard/dashboard.module";
 
 const routes = [
     /*{

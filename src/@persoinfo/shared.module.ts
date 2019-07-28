@@ -8,10 +8,14 @@ import {PersoInfoPipesModule} from '@persoinfo/pipes/pipes.module';
 import {ScrollableDirective} from "@persoinfo/directive/scrollable/scrollable.directive";
 import {NavigationModule} from "app/main/apps/navigation/navigation.module";
 import {ServicesModule} from "@persoinfo/services/services.module";
+import {ToasterModule} from "@persoinfo/components/toaster/toaster.module";
+import {DashboardModule} from "../app/main/apps/dashboard/dashboard.module";
 
 @NgModule({
-    imports  : [
+    imports: [
         ServicesModule,
+        DashboardModule,
+        ToasterModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -19,20 +23,20 @@ import {ServicesModule} from "@persoinfo/services/services.module";
         PersoInfoPipesModule,
         NavigationModule
     ],
-    declarations:[
+    declarations: [
         ScrollableDirective
     ],
-    exports  : [
+    exports: [
         ServicesModule,
+        ToasterModule,
         CommonModule,
         FormsModule,
+        DashboardModule,
         ReactiveFormsModule,
         FlexLayoutModule,
         PersoInfoPipesModule,
-        ScrollableDirective,
         NavigationModule
     ]
 })
-export class PersoInfoSharedModule
-{
+export class PersoInfoSharedModule {
 }

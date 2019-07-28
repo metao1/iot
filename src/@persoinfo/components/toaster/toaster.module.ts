@@ -22,7 +22,7 @@ import {ToasterService} from "./toaster.service";
         ToastMessageComponent,
         ToasterComponent
     ],
-    providers:[
+    providers: [
         ToasterService
     ],
     imports: [

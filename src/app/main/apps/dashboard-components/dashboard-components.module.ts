@@ -21,44 +21,45 @@ import {TableComponent} from 'app/main/apps/dashboard-components/widgets/table/t
 import {ComponentsModule} from "@persoinfo/components/components.module";
 
 @NgModule({
-  imports: [
-    ChartsModule,
-    CommonModule,
-    ComponentsModule,
-    UiSwitchModule
-  ],
-  exports: [
-    ColumnComponent,
-    FixedSidePanelComponent,
-    GraphComponent,
-    GraphTableComponent,
-    ColumnComponent,
-    GraphTableOptionsComponent,
-    GraphTableDataComponent,
-    PageableTableComponent,
-    PanelComponent,
-    ReadingsListComponent,
-    RelaysComponent,
-    RowComponent,
-    SimpleReadingComponent,
-    SimpleRelayComponent,
-    TableComponent,
-  ],
-  declarations: [
-    ColumnComponent,
-    FixedSidePanelComponent,
-    GraphComponent,
-    GraphTableComponent,
-    GraphTableOptionsComponent,
-    GraphTableDataComponent,
-    PageableTableComponent,
-    PanelComponent,
-    ReadingsListComponent,
-    RelaysComponent,
-    RowComponent,
-    SimpleReadingComponent,
-    SimpleRelayComponent,
-    TableComponent
-  ]
+    imports: [
+        ChartsModule,
+        CommonModule,
+        ComponentsModule,
+        UiSwitchModule
+    ],
+    exports: [
+        ColumnComponent,
+        FixedSidePanelComponent,
+        GraphComponent,
+        GraphTableComponent,
+        ColumnComponent,
+        GraphTableOptionsComponent,
+        GraphTableDataComponent,
+        PageableTableComponent,
+        PanelComponent,
+        ReadingsListComponent,
+        RelaysComponent,
+        RowComponent,
+        SimpleReadingComponent,
+        SimpleRelayComponent,
+        TableComponent,
+    ],
+    declarations: [
+        ColumnComponent,
+        FixedSidePanelComponent,
+        GraphComponent,
+        GraphTableComponent,
+        GraphTableOptionsComponent,
+        GraphTableDataComponent,
+        PageableTableComponent,
+        PanelComponent,
+        ReadingsListComponent,
+        RelaysComponent,
+        RowComponent,
+        SimpleReadingComponent,
+        SimpleRelayComponent,
+        TableComponent
+    ]
 })
-export class DashboardComponentsModule { }
+export class DashboardComponentsModule {
+}
