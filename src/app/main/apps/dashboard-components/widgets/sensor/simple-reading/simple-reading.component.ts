@@ -25,102 +25,90 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.configuration = new SimpleReadingConfiguration(this.atrib);
         switch (this.atrib) {
-          case SensorReadingType.HUMIDITY.toString().toLowerCase():
-            this.subscribeToHumidityEvents();
-            break;
-          /*case SensorReadingType.TEMPERATURE.toString().toLowerCase():
-            this.subscribeToTemperatureEvents();
-            break;
-          case SensorReadingType.PROXIMITY.toString().toLowerCase():
-            this.subscribeToProximityEvents();
-            break;
-          case SensorReadingType.MOISTURE.toString().toLowerCase():
-            this.subscribeToMoistureEvents();
-            break;*/
-          default:
-            break;
+            case SensorReadingType.HUMIDITY.toString().toLowerCase():
+                this.subscribeToHumidityEvents();
+                break;
+            case SensorReadingType.MOISTURE.toString().toLowerCase():
+                this.subscribeToMoistureEvents();
+                break;
+            case SensorReadingType.TEMPERATURE.toString().toLowerCase():
+              this.subscribeToTemperatureEvents();
+              break;
+            /*case SensorReadingType.PROXIMITY.toString().toLowerCase():
+              this.subscribeToProximityEvents();
+              break;
+           */
+            default:
+                break;
         }
     }
 
     private subscribeToHumidityEvents() {
-      this.subscription = this.sseService
-        .humidity
-        .subscribe(
-          humidity => {
-            try {
-              console.log('humidity event simple-reading-component ', humidity);
-              this.handleHumidityEvents(humidity);
-            } catch (e) {
+        this.subscription = this.sseService
+            .humidity
+            .subscribe(
+                humidity => {
+                    try {
+                        console.log('humidity event simple-reading-component ', humidity);
+                        this.handleHumidityEvents(humidity);
+                    } catch (e) {
 
-            }
-          }
-        );
-    }
-
-    /*private subscribeToTemperatureEvents() {
-      this.subscription = this.sseService
-        .temperatureState
-        .subscribe(
-          temperature => {
-            try {
-              console.log('temperature event simple-reading-component ', temperature);
-              this.handleTemperatureEvents(temperature);
-            } catch (e) {
-
-            }
-          }
-        );
-    }
-
-    private subscribeToProximityEvents() {
-      this.subscription = this.sseService
-        .proximityState
-        .subscribe(
-          proximity => {
-            try {
-              this.handleProximityEvents(proximity);
-            } catch (e) {
-
-            }
-          }
-        );
+                    }
+                }
+            );
     }
 
     private subscribeToMoistureEvents() {
-      this.subscription = this.sseService
-        .moistureState
-        .subscribe(
-          moisture => {
-            try {
-              console.log('moisture event simple-reading-component ', moisture);
-              this.handleMoistureEvents(moisture);
-            } catch (e) {
+        this.subscription = this.sseService
+            .moisture
+            .subscribe(
+                moisture => {
+                    try {
+                        console.log('moisture event simple-reading-component ', moisture);
+                        this.handleMoistureEvents(moisture);
+                    } catch (e) {
 
-            }
-          }
-        );
-    }*/
+                    }
+                }
+            );
+    }
+
+    private subscribeToTemperatureEvents() {
+        this.subscription = this.sseService
+            .temperature
+            .subscribe(
+                temperature => {
+                    try {
+                        console.log('temperature event simple-reading-component ', temperature);
+                        this.handleTemperatureEvents(temperature);
+                    } catch (e) {
+
+                    }
+                }
+            );
+    }
 
     private handleHumidityEvents(object) {
-      if (this.configuration.component.id === object.componentId)
-        this.configuration.component.current = object.humidity;
+        if (this.configuration.component.id === object.componentId)
+            this.configuration.component.current = object.humidity;
     }
 
     private handleTemperatureEvents(object) {
-      console.log(this.configuration.component.id);
-      if (this.configuration.component.id === object.componentId)
-        this.configuration.component.current = object.temperature;
+        console.log(this.configuration.component.id);
+        if (this.configuration.component.id === object.componentId)
+            this.configuration.component.current = object.temperature;
     }
 
     private handleProximityEvents(object) {
-      if (this.configuration.component.id === object.componentId)
-        this.configuration.component.current = object.distance;
+        if (this.configuration.component.id === object.componentId)
+            this.configuration.component.current = object.distance;
     }
 
     private handleMoistureEvents(object) {
-      if (this.configuration.component.id === object.componentId)
-        this.configuration.component.current = object.moisture;
+        if (this.configuration.component.id === object.componentId)
+            this.configuration.component.current = object.moisture;
     }
+
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

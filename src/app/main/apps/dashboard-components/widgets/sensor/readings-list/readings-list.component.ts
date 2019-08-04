@@ -10,6 +10,7 @@ import {SseService} from "@persoinfo/services/sse/sse.service";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
+import {TemperatureSensorService} from "@persoinfo/services/temperature-sensor/temperature-sensor.service";
 
 @Component({
     selector: 'app-readings-list',
@@ -38,9 +39,9 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     constructor(
         private sseService: SseService,
         private humiditySensorService: HumiditySensorService,
-       /* private moistureSensorService: MoistureSensorService,*/
-        /*private proximitySensorService: ProximitySensorService,
-        private temperatureSensorService: TemperatureSensorService,*/
+        private temperatureSensorService: TemperatureSensorService,
+        private moistureSensorService: MoistureSensorService,
+        /*private proximitySensorService: ProximitySensorService,*/
         private toasterService: ToasterService
     ) {
         this._unsubscribeAll = new Subject();
@@ -52,9 +53,10 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.retrieveHumiditySensors();
-        /*this.retrieveTemperatureSensors();
-      this.retrieveProximitySensors();
-      this.retrieveMoistureSensors();*/
+        this.retrieveMoistureSensors();
+        this.retrieveTemperatureSensors();
+        /*this.retrieveProximitySensors();
+       */
     }
 
     toggleTemperatureUnit() {
@@ -75,109 +77,28 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             }).catch(error => this.toasterService.toast('Unable to retrieve humidity sensors', ToastType.DANGER))
     }
 
-    /*
-      private retrieveMoistureSensors() {
+
+    private retrieveMoistureSensors() {
         this.moistureSensorService.findAll()
-          .subscribe(
-            data => {
-              this.moisture = data;
-              this.subscribeToMoistureEvents();
-            },
-            error => this.toasterService.toast('Unable to retrieve moisture sensors', ToastType.DANGER)
-          );
-      }
+            .then((value) => {
+                console.log('ok:' + value);
+                if (value !== null) {
+                    this.moisture = value;
+                    this.subscribeToMoistureEvents();
+                }
+            }).catch(error => this.toasterService.toast('Unable to retrieve moisture sensors', ToastType.DANGER))
+    }
 
-      private retrieveProximitySensors() {
-        this.proximitySensorService.findAll()
-          .subscribe(
-            data => {
-              this.proximity = data;
-              this.subscribeToProximityEvents();
-            },
-            error => this.toasterService.toast('Unable to retreive proximity sensors', ToastType.DANGER)
-          );
-      }
-
-      private retrieveTemperatureSensors() {
+    private retrieveTemperatureSensors() {
         this.temperatureSensorService.findAll()
-          .subscribe(
-            data => {
-              this.temperature = data;
-              this.subscribeToTemperatureEvents();
-            },
-            error => this.toasterService.toast('Unable to retrieve temperature sensors', ToastType.DANGER)
-          );
-      }
-
-      private subscribeToTemperatureEvents() {
-        this.temperatureSubscription = this.sseService.temperatureState
-          .subscribe(
-            temperature => this.handleTemperatureEvent(temperature)
-          );
-      }
-
-      private subscribeToHumidityEvents() {
-        this.humiditySubscription = this.sseService.humidityState
-          .subscribe(
-            humidity => {
-              this.handleHumidityEvent(humidity);
-            }
-          );
-      }
-
-      private subscribeToProximityEvents() {
-        this.proximitySubscription = this.sseService.proximityState
-          .subscribe(
-            proximity => {
-              try {
-                this.handleProximityEvent(proximity)
-              } catch (e) {
-              }
-            }
-          );
-      }
-
-      private subscribeToMoistureEvents() {
-        this.moistureSubscription = this.sseService.moistureState
-          .subscribe(
-            moisture => this.handleMoistureEvent(moisture)
-          )
-      }
-
-      private handleTemperatureEvent(data: any) {
-        let obj: any = this.temperature.find(e => e.id === data.componentId);
-        if (obj) {
-          obj.current = data.temperature;
-        } else {
-          console.log('object did not found');
-        }
-      }
-
-      private handleHumidityEvent(data: any) {
-        let obj: any = this.humidity.find(e => e.id === data.componentId);
-        obj.current = data.humidity;
-      }
-
-      private handleProximityEvent(data: any) {
-        let obj: any = this.proximity.find(e => e.id === data.component.id);
-        obj.current = data.distance;
-      }
-
-      private handleMoistureEvent(data: any) {
-        let obj: any = this.moisture.find(e => e.id === data.component.id);
-        obj.current = data.moisture;
-      }
-
-      ngOnDestroy() {
-        if (this.temperatureSubscription)
-          this.temperatureSubscription.unsubscribe();
-        if (this.humiditySubscription)
-          this.humiditySubscription.unsubscribe();
-        if (this.proximitySubscription)
-          this.proximitySubscription.unsubscribe();
-        if (this.moistureSubscription)
-          this.moistureSubscription.unsubscribe();
-      }*/
+            .then((value) => {
+                console.log('ok:' + value);
+                if (value !== null) {
+                    this.temperature = value;
+                    this.subscribeToTemperatureEvents();
+                }
+            }).catch(error => this.toasterService.toast('Unable to retrieve temperature sensors', ToastType.DANGER))
+    }
 
     private subscribeToHumidityEvents() {
         this.sseService.humidity
@@ -191,14 +112,57 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             );
     }
 
-    private handleHumidityEvent(data: any) {
-        console.log('finding :' + data);
-        let obj: any = this.humidity.find(e => e.id === data.componentId);
-        console.log('found :' + data.componentId);
-        console.log('components :' + JSON.stringify(data.humidity));
+    private subscribeToMoistureEvents() {
+        this.sseService.moisture
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(value => {
+                    if (value !== null) {
+                        console.log('value is :' + value);
+                        this.handleMoistureEvent(value);
+                    }
+                }
+            );
+    }
 
+    private subscribeToTemperatureEvents() {
+        this.sseService.temperature
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(value => {
+                    if (value !== null) {
+                        console.log('value is :' + value);
+                        this.handleTemperatureEvent(value);
+                    }
+                }
+            );
+    }
+
+    private handleHumidityEvent(data: any) {
+        //console.log('finding :' + data);
+        let obj: any = this.humidity.find(e => e.id === data.componentId);
+        //console.log('found :' + data.componentId);
+        //console.log('components :' + JSON.stringify(data.humidity));
         if (obj) {
             obj.current = data.humidity;
+        }
+    }
+
+    private handleMoistureEvent(data: any) {
+        //console.log('finding :' + data);
+        let obj: any = this.moisture.find(e => e.id === data.componentId);
+        //console.log('found :' + data.componentId);
+        //console.log('components :' + JSON.stringify(data.moisture));
+        if (obj) {
+            obj.current = data.moisture;
+        }
+    }
+
+    private handleTemperatureEvent(data: any) {
+        console.log('finding :' + data);
+        let obj: any = this.temperature.find(e => e.id === data.componentId);
+        console.log('found :' + data.componentId);
+        console.log('components :' + JSON.stringify(data.temperature));
+        if (obj) {
+            obj.current = data.temperature;
         }
     }
 
@@ -206,6 +170,10 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
         // Unsubscribe from all subscriptions
         if (this.humiditySubscription)
             this.humiditySubscription.unsubscribe();
+        if (this.moistureSubscription)
+            this.moistureSubscription.unsubscribe();
+        if (this.temperatureSubscription)
+            this.temperatureSubscription.unsubscribe();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }

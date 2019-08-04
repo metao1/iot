@@ -10,15 +10,17 @@ export class SseService implements OnDestroy {
 
     private relay = new Subject<Object>();
     public humidity :BehaviorSubject<any>;
-    private temperature = new BehaviorSubject<Object>(null);
+    public moisture = new BehaviorSubject<Object>(null);
+    public temperature = new BehaviorSubject<Object>(null);
     private proximity = new BehaviorSubject<Object>(null);
-    private moisture = new BehaviorSubject<Object>(null);
     private notification = new Subject<Object>();
 
     private events;
 
     constructor() {
         this.humidity = new BehaviorSubject([]);
+        this.moisture = new BehaviorSubject([]);
+        this.temperature = new BehaviorSubject([]);
         this.events = new EventSource(SERVER_API_URL + '/event', {
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache',
