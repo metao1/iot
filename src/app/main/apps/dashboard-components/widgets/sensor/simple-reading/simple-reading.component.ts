@@ -1,8 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SensorReadingType} from "@persoinfo/model/dashboard/configuration/shared/sensor-reading-type.enum";
 import {SimpleReadingConfiguration} from "@persoinfo/model/dashboard/configuration/widget/sensor/simple-reading/simple-reading.configuration";
-
-//import {SseService} from '@app/core/service/sse/sse.service';
+import {SseService} from "@persoinfo/services/sse/sse.service";
 
 @Component({
     selector: 'app-simple-reading',
@@ -19,17 +18,17 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
 
     private subscription;
 
-    constructor(/*private sseService: SseService*/) {
+    constructor(private sseService: SseService) {
 
     }
 
     ngOnInit() {
         this.configuration = new SimpleReadingConfiguration(this.atrib);
-        /*switch (this.atrib) {
+        switch (this.atrib) {
           case SensorReadingType.HUMIDITY.toString().toLowerCase():
             this.subscribeToHumidityEvents();
             break;
-          case SensorReadingType.TEMPERATURE.toString().toLowerCase():
+          /*case SensorReadingType.TEMPERATURE.toString().toLowerCase():
             this.subscribeToTemperatureEvents();
             break;
           case SensorReadingType.PROXIMITY.toString().toLowerCase():
@@ -37,15 +36,15 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
             break;
           case SensorReadingType.MOISTURE.toString().toLowerCase():
             this.subscribeToMoistureEvents();
-            break;
+            break;*/
           default:
             break;
-        }*/
+        }
     }
 
-    /*private subscribeToHumidityEvents() {
+    private subscribeToHumidityEvents() {
       this.subscription = this.sseService
-        .humidityState
+        .humidity
         .subscribe(
           humidity => {
             try {
@@ -58,7 +57,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
         );
     }
 
-    private subscribeToTemperatureEvents() {
+    /*private subscribeToTemperatureEvents() {
       this.subscription = this.sseService
         .temperatureState
         .subscribe(
@@ -100,7 +99,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
             }
           }
         );
-    }
+    }*/
 
     private handleHumidityEvents(object) {
       if (this.configuration.component.id === object.componentId)
@@ -122,7 +121,6 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
       if (this.configuration.component.id === object.componentId)
         this.configuration.component.current = object.moisture;
     }
-  */
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();

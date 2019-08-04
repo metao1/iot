@@ -27,8 +27,8 @@ export class SimpleReadingConfiguration {
       case 'humidity':
         this.color = SimpleReadingColor.GREEN;
         this.type = SensorReadingType.HUMIDITY;
-        this.component = new HumiditySensor(10, 'humidity', null, RPiComponentType.HUMIDITY,
-          new HumiditySensorPreferences(10, 1, 100, true, true));
+        this.component = new HumiditySensor(1, 'humidity', null, RPiComponentType.HUMIDITY,
+          new HumiditySensorPreferences(1, 1, 100, true, true));
         break;
       case 'temperature':
         this.color = SimpleReadingColor.RED;

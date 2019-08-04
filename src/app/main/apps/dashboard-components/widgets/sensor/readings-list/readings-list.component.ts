@@ -4,6 +4,7 @@ import {MoistureSensor} from "@persoinfo/model/rpicomponent/moisture-sensor/mois
 import {ProximitySensor} from "@persoinfo/model/rpicomponent/proximity-sensor/proximity-sensor.model";
 import {TemperatureSensor} from "@persoinfo/model/rpicomponent/temperature-sensor/temperature-sensor.model";
 import {HumiditySensorService} from "@persoinfo/services/humidity-sensor/humidity-sensor.service";
+import {MoistureSensorService} from "@persoinfo/services/moisture-sensor/moisture-sensor.service";
 import {ToasterService} from "@persoinfo/components/toaster/toaster.service";
 import {SseService} from "@persoinfo/services/sse/sse.service";
 import {Subject} from "rxjs";
@@ -37,13 +38,10 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     constructor(
         private sseService: SseService,
         private humiditySensorService: HumiditySensorService,
+       /* private moistureSensorService: MoistureSensorService,*/
+        /*private proximitySensorService: ProximitySensorService,
+        private temperatureSensorService: TemperatureSensorService,*/
         private toasterService: ToasterService
-        /*,
-        private moistureSensorService: MoistureSensorService,
-        private proximitySensorService: ProximitySensorService,
-        private temperatureSensorService: TemperatureSensorService,
-        private sseService: SseService,
-        private toasterService: ToasterService*/
     ) {
         this._unsubscribeAll = new Subject();
         this.humidity = new Array<HumiditySensor>();
@@ -196,7 +194,10 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     private handleHumidityEvent(data: any) {
         console.log('finding :' + data);
         let obj: any = this.humidity.find(e => e.id === data.componentId);
-        if (obj && obj.current) {
+        console.log('found :' + data.componentId);
+        console.log('components :' + JSON.stringify(data.humidity));
+
+        if (obj) {
             obj.current = data.humidity;
         }
     }
