@@ -40,12 +40,15 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         return null;
     }
 
-    findAll(): Promise<T[]> {
+    findAll(): Promise<any> {
         return new Promise((resolve, reject) => {
             console.log('getting all:' + SERVER_API_URL + this.base);
             this.http.get<T[]>(SERVER_API_URL + this.base)
                 .subscribe(
-                    data => resolve(this.extractResult(data)),
+                    data =>{
+                        console.log(data);
+                        resolve(data)
+                    },
                     error => reject(this.handleError(error)));
         });
     }
@@ -72,9 +75,14 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         return Observable.throw(msg);
     }
 
-    private extractResult(data: any): Promise<T[]> {
+    private extractResult(data: any) {
         console.log('data is:'+ data);
-        let body = data.json() || '';
-        return body;
+        if(data!==null) {
+            return data.json() || '';
+        }else{
+            return new Promise<T[]>(()=>{
+
+            });
+        }
     }
 }

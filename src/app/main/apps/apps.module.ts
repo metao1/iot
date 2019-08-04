@@ -4,6 +4,7 @@ import {RouterModule} from '@angular/router';
 import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {EventManager} from "@persoinfo/event/EventManager";
 import {DashboardModule} from "./dashboard/dashboard.module";
+import {UserRouteAccessService} from "../../../@persoinfo/services/authentication";
 
 const routes = [
     /*{
@@ -12,7 +13,13 @@ const routes = [
     },*/
     {
         path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'dashboard.title'
+        },
+        loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule',
+        canActivate: [UserRouteAccessService]
+
     }
 ];
 

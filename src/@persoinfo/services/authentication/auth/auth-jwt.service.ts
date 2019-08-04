@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 
 import {SERVER_API_URL} from 'app/app.constants';
+import {Login} from "@persoinfo/model/user/login.module";
 
 @Injectable({providedIn: 'root'})
 export class AuthServerProvider {
@@ -20,13 +21,16 @@ export class AuthServerProvider {
             username: credentials.username,
             password: credentials.password
         };
-        return this.http.post(SERVER_API_URL + '/authenticate', data, {observe: 'response'})
+        return this.http.post<Login>(SERVER_API_URL + '/authenticate', data)
             .pipe(map(authenticateSuccess.bind(this)));
 
-        function authenticateSuccess(resp) {
-            const bearerToken = resp.headers.get('Authorization');
-            if (bearerToken && bearerToken.slice(0, 7) === 'Bearer ') {
-                const jwt = bearerToken.slice(7, bearerToken.length);
+        function authenticateSuccess(resp:Login) {
+
+            console.log('saving jwt:' + JSON.stringify(resp.id_token));
+            const bearerToken = resp.id_token;
+
+            if (bearerToken) {
+                const jwt = bearerToken.slice(0, bearerToken.length);
                 this.storeAuthenticationToken(jwt, credentials.rememberMe);
                 return jwt;
             }

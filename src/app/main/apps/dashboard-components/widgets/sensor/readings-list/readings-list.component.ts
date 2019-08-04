@@ -6,6 +6,8 @@ import {TemperatureSensor} from "@persoinfo/model/rpicomponent/temperature-senso
 import {HumiditySensorService} from "@persoinfo/services/humidity-sensor/humidity-sensor.service";
 import {ToasterService} from "@persoinfo/components/toaster/toaster.service";
 import {SseService} from "@persoinfo/services/sse/sse.service";
+import {Subject} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 
 @Component({
@@ -19,6 +21,9 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     moisture: MoistureSensor[];
     proximity: ProximitySensor[];
     temperature: TemperatureSensor[];
+
+    // Private
+    private _unsubscribeAll: Subject<any>;
 
     @Input()
     heading: string = 'Current Readings';
@@ -40,6 +45,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
         private sseService: SseService,
         private toasterService: ToasterService*/
     ) {
+        this._unsubscribeAll = new Subject();
         this.humidity = new Array<HumiditySensor>();
         this.moisture = new Array<MoistureSensor>();
         this.proximity = new Array<ProximitySensor>();
@@ -62,9 +68,12 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
 
     private retrieveHumiditySensors() {
         this.humiditySensorService.findAll()
-            .then(value => {
-                this.humidity = value;
-                this.subscribeToHumidityEvents();
+            .then((value) => {
+                console.log('ok:' + value);
+                if (value !== null) {
+                    this.humidity = value;
+                    this.subscribeToHumidityEvents();
+                }
             }).catch(error => this.toasterService.toast('Unable to retrieve humidity sensors', ToastType.DANGER))
     }
 
@@ -173,22 +182,30 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
       }*/
 
     private subscribeToHumidityEvents() {
-        this.humiditySubscription = this.sseService.humidityState
-            .subscribe(
-                value => {
-                    this.handleHumidityEvent(value);
+        this.sseService.humidity
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(value => {
+                    if (value !== null) {
+                        console.log('value is :' + value);
+                        this.handleHumidityEvent(value);
+                    }
                 }
             );
     }
 
     private handleHumidityEvent(data: any) {
+        console.log('finding :' + data);
         let obj: any = this.humidity.find(e => e.id === data.componentId);
-        obj.current = data.humidity;
+        if (obj && obj.current) {
+            obj.current = data.humidity;
+        }
     }
 
     ngOnDestroy() {
+        // Unsubscribe from all subscriptions
         if (this.humiditySubscription)
             this.humiditySubscription.unsubscribe();
-
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
     }
 }

@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     {
         path: 'login',
         loadChildren: 'app/main/login/login.module#LoginModule'
-    },
+    }/*,
     {
         path: 'dashboard',
         data: {
@@ -49,7 +49,7 @@ const appRoutes: Routes = [
         loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule',
         canActivate: [UserRouteAccessService]
 
-    },/*
+    },*//*
     {
         path: 'scheduling',
         data: {
@@ -69,14 +69,10 @@ const appRoutes: Routes = [
         loadChildren: 'app/main/settings/settings.module#SettingsModule',
         canActivate: [UserRouteAccessService]
     },*/
-    {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-    },
+    ,
     {
         path: '**',
-        redirectTo: 'dashboard'
+        redirectTo: 'login'
     }
 ];
 
