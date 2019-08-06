@@ -25,9 +25,11 @@ export class UserRouteAccessService implements CanActivate {
 
     checkLogin(authorities: string[], url: string): Promise<boolean> {
         return this.accountService.identity(false).then(account => {
-            console.log(authorities);
+            if (!account) {
+                this._location.go('login');
+            }
             if (!authorities || authorities.length === 0) {
-                return false;
+                return true;
             }
 
             if (account) {
@@ -44,8 +46,8 @@ export class UserRouteAccessService implements CanActivate {
             this.stateStorageService.storeUrl(url);
             // only show the login dialog, if the user hasn't logged in yet
             if (!account) {
-                console.error('no user found, check login...');
-                this.router.navigateByUrl('login');
+                console.log('no user found...check login')
+                this._location.go('login');
             }
             return false;
         });

@@ -1,6 +1,5 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subject} from 'rxjs/Subject';
 import {SERVER_API_URL} from "app/app.constants";
 
 declare let EventSource: any;
@@ -8,18 +7,19 @@ declare let EventSource: any;
 @Injectable()
 export class SseService implements OnDestroy {
 
-    private relay = new Subject<Object>();
-    public humidity :BehaviorSubject<any>;
+    public relay = new BehaviorSubject<Object>(null);
+    public humidity = new BehaviorSubject<Object>(null);
     public moisture = new BehaviorSubject<Object>(null);
     public temperature = new BehaviorSubject<Object>(null);
-    private proximity = new BehaviorSubject<Object>(null);
-    private notification = new Subject<Object>();
+    public proximity = new BehaviorSubject<Object>(null);
+    public notification = new BehaviorSubject<Object>(null);
 
     private events;
 
     constructor() {
         this.humidity = new BehaviorSubject([]);
         this.moisture = new BehaviorSubject([]);
+        this.relay = new BehaviorSubject([]);
         this.temperature = new BehaviorSubject([]);
         this.events = new EventSource(SERVER_API_URL + '/event', {
             'Content-Type': 'text/event-stream',

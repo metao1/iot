@@ -13,10 +13,10 @@ import {GraphTableDataComponent} from 'app/main/apps/dashboard-components/widget
 import {PageableTableComponent} from 'app/main/apps/dashboard-components/widgets/table/pageable-table/pageable-table.component';
 import {PanelComponent} from 'app/main/apps/dashboard-components/panel/panel.component';
 import {ReadingsListComponent} from 'app/main/apps/dashboard-components/widgets/sensor/readings-list/readings-list.component';
-import {RelaysComponent} from 'app/main/apps/dashboard-components/widgets/control/relays/relays.component';
+import {RelaysComponent} from 'app/main/apps/dashboard-components/widgets/sensor/relays/relays.component';
 import {RowComponent} from 'app/main/apps/dashboard-components/row/row.component';
 import {SimpleReadingComponent} from 'app/main/apps/dashboard-components/widgets/sensor/simple-reading/simple-reading.component';
-import {SimpleRelayComponent} from 'app/main/apps/dashboard-components/widgets/control/simple-relay/simple-relay.component';
+import {SimpleRelayComponent} from 'app/main/apps/dashboard-components/widgets/sensor/simple-relay/simple-relay.component';
 import {TableComponent} from 'app/main/apps/dashboard-components/widgets/table/table/table.component';
 import {ComponentsModule} from "@persoinfo/components/components.module";
 
