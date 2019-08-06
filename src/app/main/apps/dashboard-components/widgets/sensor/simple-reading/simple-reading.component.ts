@@ -46,13 +46,12 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     private subscribeToHumidityEvents() {
         this.subscription = this.sseService
             .humidity
-            .subscribe(
-                humidity => {
+            .subscribe(humidity => {
                     try {
-                        console.log('humidity event simple-reading-component ', humidity);
+                        //console.log('humidity event simple-reading-component ', humidity);
                         this.handleHumidityEvents(humidity);
                     } catch (e) {
-
+                        console.error(e);
                     }
                 }
             );
@@ -61,10 +60,9 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     private subscribeToMoistureEvents() {
         this.subscription = this.sseService
             .moisture
-            .subscribe(
-                moisture => {
+            .subscribe(moisture => {
                     try {
-                        console.log('moisture event simple-reading-component ', moisture);
+                        //console.log('moisture event simple-reading-component ', moisture);
                         this.handleMoistureEvents(moisture);
                     } catch (e) {
 
@@ -76,10 +74,9 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     private subscribeToTemperatureEvents() {
         this.subscription = this.sseService
             .temperature
-            .subscribe(
-                temperature => {
+            .subscribe(temperature => {
                     try {
-                        console.log('temperature event simple-reading-component ', temperature);
+                        //console.log('temperature event simple-reading-component ', temperature);
                         this.handleTemperatureEvents(temperature);
                     } catch (e) {
 
@@ -94,7 +91,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     }
 
     private handleTemperatureEvents(object) {
-        console.log(this.configuration.component.id);
+        //console.log(this.configuration.component.id);
         if (this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.temperature;
     }

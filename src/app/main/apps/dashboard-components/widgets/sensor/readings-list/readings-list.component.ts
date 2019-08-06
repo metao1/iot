@@ -69,7 +69,6 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     private retrieveHumiditySensors() {
         this.humiditySensorService.findAll()
             .then((value) => {
-                console.log('ok:' + value);
                 if (value !== null) {
                     this.humidity = value;
                     this.subscribeToHumidityEvents();
@@ -81,7 +80,6 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     private retrieveMoistureSensors() {
         this.moistureSensorService.findAll()
             .then((value) => {
-                console.log('ok:' + value);
                 if (value !== null) {
                     this.moisture = value;
                     this.subscribeToMoistureEvents();
@@ -92,7 +90,6 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     private retrieveTemperatureSensors() {
         this.temperatureSensorService.findAll()
             .then((value) => {
-                console.log('ok:' + value);
                 if (value !== null) {
                     this.temperature = value;
                     this.subscribeToTemperatureEvents();
@@ -105,7 +102,6 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(value => {
                     if (value !== null) {
-                        console.log('value is :' + value);
                         this.handleHumidityEvent(value);
                     }
                 }
@@ -117,7 +113,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(value => {
                     if (value !== null) {
-                        console.log('value is :' + value);
+                       // console.log('value is :' + value);
                         this.handleMoistureEvent(value);
                     }
                 }
@@ -129,7 +125,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(value => {
                     if (value !== null) {
-                        console.log('value is :' + value);
+                        //console.log('value is :' + value);
                         this.handleTemperatureEvent(value);
                     }
                 }
@@ -157,10 +153,10 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
     }
 
     private handleTemperatureEvent(data: any) {
-        console.log('finding :' + data);
+        //console.log('finding :' + data);
         let obj: any = this.temperature.find(e => e.id === data.componentId);
-        console.log('found :' + data.componentId);
-        console.log('components :' + JSON.stringify(data.temperature));
+        //console.log('found :' + data.componentId);
+        //console.log('components :' + JSON.stringify(data.temperature));
         if (obj) {
             obj.current = data.temperature;
         }

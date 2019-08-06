@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-xs-12">
+    <app-rpi-list
+        [rpis]="rpis"
+        (onDelete)="onDelete($event)"></app-rpi-list>
+  </div>
+</div>
+<app-modal-confirm
+    [modalConfirm]="modalConfirm"
+    (onConfirm)="onConfirm($event)">
+</app-modal-confirm>

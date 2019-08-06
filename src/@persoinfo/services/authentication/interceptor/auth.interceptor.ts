@@ -23,8 +23,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 }
             });
         }
-        console.log(JSON.stringify(request));
 
         return next.handle(request);
+        //console.log('request:' + JSON.stringify(request) + ':' + token);
     }
 }

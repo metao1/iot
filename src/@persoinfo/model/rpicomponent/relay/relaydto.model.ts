@@ -1,9 +1,10 @@
-import {RPiComponent} from '../rpicomponent.model';
 import {RelayState} from './relay-state.enum';
+import {RelayComponentModelComponent} from "@persoinfo/model/rpicomponent/relaycomponent.model";
 
 export class RelayDTO {
-  constructor (
-      public component: RPiComponent,
-      public state: RelayState
-    ) {}
+    constructor(
+        public component: RelayComponentModelComponent,
+        public state: RelayState
+    ) {
+    }
 }

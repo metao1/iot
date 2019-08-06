@@ -1,0 +1,17 @@
+<div class="row" *ngIf="isLoading">
+  <app-page-loader></app-page-loader>
+</div>
+<div class="row" *ngIf="!isLoading">
+  <div class="col-sm-12 col-md-6 col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <app-rpicomponent-table></app-rpicomponent-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-5">
+    <app-rpi-pinout
+        [pins]="pins">
+    </app-rpi-pinout>
+  </div>
+</div>

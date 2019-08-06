@@ -5,7 +5,7 @@ import {SERVER_API_URL} from "app/app.constants";
 
 export class CrudService<T, ID> implements CrudOperations<T, ID> {
 
-    private http: HttpClient;
+    protected http: HttpClient;
     protected options: any;
     protected base: string;
 
@@ -13,7 +13,7 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         base: string,
         http: HttpClient,
         options: any) {
-        this.base = base;
+        this.base = SERVER_API_URL + base;
         this.http = http;
         this.options = options;
     }
@@ -42,11 +42,11 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
 
     findAll(): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log('getting all:' + SERVER_API_URL + this.base);
-            this.http.get<T[]>(SERVER_API_URL + this.base)
+            console.log('getting all:' + this.base);
+            this.http.get<T[]>(this.base)
                 .subscribe(
-                    data =>{
-                        console.log(data);
+                    data => {
+                        //console.log(data);
                         resolve(data)
                     },
                     error => reject(this.handleError(error)));
@@ -73,16 +73,5 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         }
 
         return Observable.throw(msg);
-    }
-
-    private extractResult(data: any) {
-        console.log('data is:'+ data);
-        if(data!==null) {
-            return data.json() || '';
-        }else{
-            return new Promise<T[]>(()=>{
-
-            });
-        }
     }
 }
