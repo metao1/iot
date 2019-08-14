@@ -10,14 +10,16 @@ export class CrudDataService<T, ID> implements CrudDataOperations<T, ID> {
     protected options: any;
     protected base: string;
     protected component_type: string;
+
     constructor(
         base: string,
-        component_type:string,
+        component_type: string,
         http: HttpClient,
         options: any) {
         this.base = base;
         this.http = http;
         this.options = options;
+        this.component_type = component_type;
     }
 
     findAllDailyAverageByComponent(id: ID, page: number): Observable<Page<T>> {
@@ -50,15 +52,13 @@ export class CrudDataService<T, ID> implements CrudDataOperations<T, ID> {
 
     findCustomByComponent(id: ID, path: string, page: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            let url = this.base + '/' + id + this.component_type + path + '?page=' + page;
+            let url = this.base + id + this.component_type + path + '?page=' + page;
             console.log('getting all:' + SERVER_API_URL + url);
-            return this.http.get<Page<T>>(SERVER_API_URL + url, this.options)
-                .subscribe(
-                    data => {
-                        //console.log(data);
+            this.http.get<Page<T>>(SERVER_API_URL + url)
+                .subscribe(data => {
+                        //console.log('find custome: '+ JSON.stringify(data));
                         resolve(data)
-                    },
-                    error => reject(this.handleError(error)));
+                    },error => reject(this.handleError(error)));
         });
     }
 

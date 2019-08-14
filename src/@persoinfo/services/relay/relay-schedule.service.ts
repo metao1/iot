@@ -10,7 +10,7 @@ import {RelayScheduleJob} from "@persoinfo/model/rpicomponent/relay-schedule-job
 export class RelayScheduleService extends CrudService<RelayScheduleJob, number> {
 
     constructor(http: HttpClient) {
-        super("component/relaySubsc/schedule", http, null);
+        super("component/relay/schedule", http, null);
     }
 
     public toggle(id: number, enabled: boolean): Observable<RelayScheduleJob> {

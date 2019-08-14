@@ -16,6 +16,6 @@ export class DashboardComponent extends PageLoading implements OnInit {
     ngOnInit() {
         this.standby();
         setTimeout(() => this.ready(), 1000);
-        console.log(DASHBOARD_DEFAULT);
+        //console.log(DASHBOARD_DEFAULT);
     }
 }

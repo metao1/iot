@@ -15,14 +15,14 @@ export class RelayService extends CrudService<Relay, number> {
     }
 
     public toggle(relay: RelayDTO): void {
-         let url: string = this.base + relay.component.id + '/relay?state=' + relay.state;
-         console.log("inside toggle relay : url -> " + url);
-         this.http.put(url, '')
-             .subscribe(response => console.log("success"), error => console.log("error toggling relay"));
+        let url: string = this.base + "/" + relay.component.id + '/?state=' + relay.state;
+        console.log("inside toggle relay : url -> " + url);
+        this.http.put(url, '')
+            .subscribe(response => console.log("success"), error => console.log("error toggling relay"));
     }
 
     public poll(relay: RelayDTO): void {
-        let url: string = this.base + relay.component.id + "/relay/poll";
+        let url: string = this.base + "/" + relay.component.id + "/poll";
         console.log("inside relay poll");
         this.http.get(url)
             .subscribe(response => console.log("success"), error => console.log("error polling relay"));
