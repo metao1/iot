@@ -46,12 +46,10 @@ export class RPiComponentAddComponent implements OnInit {
     submit(component: RPiComponent) {
         console.log(component);
         this.rPiComponentService.save(component)
-            .subscribe(
-                data => {
+            .then(data => {
                     this.toasterService.toast("Component successfully added", ToastType.SUCCESS);
-                },
-                error => this.toasterService.toast("Error adding new component", ToastType.WARNING)
-            );
+                }
+            ).catch(error => this.toasterService.toast("Error adding new component", ToastType.WARNING));
     }
 
 }

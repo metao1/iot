@@ -1,7 +1,14 @@
 let graphPresets = {
   options : {
     scales : {
-      yAxes: []
+        xAxes: [{
+            ticks: { fontColor: 'white' },
+            gridLines: { color: 'rgba(255,255,255,0.1)' }
+        }],
+        yAxes: [{
+            ticks: { fontColor: 'white' },
+            gridLines: { color: 'rgba(255,255,255,0.1)' }
+        }]
     },
     legend : {
       labels: {
@@ -16,7 +23,7 @@ let graphPresets = {
 
   chartColors: [
     {
-      hoverBackgroundColor: '#31b0d5',
+      hoverBackgroundColor: '#d5bc00',
       backgroundColor: '#5bc0de'
     },
     {

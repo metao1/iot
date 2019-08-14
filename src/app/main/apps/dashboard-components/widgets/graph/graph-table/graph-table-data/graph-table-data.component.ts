@@ -41,7 +41,7 @@ export class GraphTableDataComponent implements OnInit {
         this.rPiComponentService
             .findAllByType(RPiComponentType.TEMPERATURE)
             .then((data: RPiComponent[]) => {
-                    console.log('components:', JSON.stringify(data));
+                    //console.log('components:', JSON.stringify(data));
                     this.components = data;
                     this.configuration.component = this.components[0];
                     this.updateData()

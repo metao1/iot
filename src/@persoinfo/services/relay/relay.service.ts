@@ -23,9 +23,9 @@ export class RelayService extends CrudService<Relay, number> {
 
     public poll(relay: RelayDTO): void {
         let url: string = this.base + "/" + relay.component.id + "/poll";
-        console.log("inside relay poll");
         this.http.get(url)
-            .subscribe(response => console.log("success"), error => console.log("error polling relay"));
+            .subscribe(response => /*console.log("success")*/
+                error => console.log("error polling relay"));
     }
 
 }

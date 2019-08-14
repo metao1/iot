@@ -2,9 +2,9 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 export interface CrudOperations<T, ID> {
-	save(t: T): Observable<T>;
-	update(id: ID, t: T): Observable<T>;
-	findOne(id: ID): Observable<T>;
+	save(t: T): Promise<T>;
+	update(id: ID, t: T): Promise<T>;
+	findOne(id: ID): Promise<T>;
 	findAll(): Promise<T[]>;
-	delete(id: ID): Observable<any>;
+	delete(id: ID): Promise<any>;
 }

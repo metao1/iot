@@ -69,10 +69,14 @@ const appRoutes: Routes = [
         loadChildren: 'app/main/settings/settings.module#SettingsModule',
         canActivate: [UserRouteAccessService]
     },*/
-    ,
-    {
-        path: '**',
-        redirectTo: 'login'
+    , {
+        path: 'settings',
+        data: {
+            authorities: ['ROLE_ADMIN'],
+            pageTitle: 'dashboard.title'
+        },
+        loadChildren: 'app/main/apps/settings/settings.module#SettingsModule',
+        canActivate: [UserRouteAccessService]
     }
 ];
 

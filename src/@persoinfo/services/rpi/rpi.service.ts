@@ -8,7 +8,7 @@ import {RPi} from "@persoinfo/model/rpi/rpi.model";
 export class RPiService extends CrudService<RPi, number> {
 
     constructor(http: HttpClient) {
-        super("rpi", http, null);
+        super("/rpi", http, null);
     }
 
 }

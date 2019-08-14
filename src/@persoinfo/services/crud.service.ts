@@ -18,26 +18,40 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         this.options = options;
     }
 
-    save(t: T) {
-        console.log(this.base);
-        /*return this.http.post(this.base, t, this.options())
-          .map(this.extractData)
-          .catch(this.handleError);*/
-        return null;
+    save(t: T): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.post(this.base, t)
+                .subscribe(
+                    data => {
+                        //console.log(data);
+                        resolve(data)
+                    },
+                    error => reject(this.handleError(error)));
+        });
     }
 
-    update(id: ID, t: T) {
-        /*return this.http.put(this.base + "/" + id, t, this.options())
-          .map(this.extractData)
-          .catch(this.handleError);*/
-        return null;
+    update(id: ID, t: T): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get<T>(this.base + "/" + id)
+                .subscribe(
+                    data => {
+                        //console.log(data);
+                        resolve(data)
+                    },
+                    error => reject(this.handleError(error)));
+        });
     }
 
-    findOne(id: ID) {
-        /*return this.http.get(this.base + "/" + id, this.options())
-          .map(this.extractData)
-          .catch(this.handleError);*/
-        return null;
+    findOne(id: ID): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get<T>(this.base + "/" + id)
+                .subscribe(
+                    data => {
+                        console.log(data);
+                        resolve(data)
+                    },
+                    error => reject(this.handleError(error)));
+        });
     }
 
     findAll(): Promise<any> {
@@ -53,16 +67,18 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
         });
     }
 
-    delete(id: ID): Observable<any> {
-        return undefined;
+    delete(id: ID): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.delete<T>(this.base + "/" + id)
+                .subscribe(
+                    data => {
+                        //console.log(data);
+                        resolve(data)
+                    },
+                    error => reject(this.handleError(error)));
+        });
     }
 
-    /*delete(id: ID) {
-      return this.http.delete(this.base + '/' + id, this.options())
-               .map(this.extractData)
-        .catch(this.handleError);
-      }
-    */
     protected handleError(error: Response | any) {
         let msg: any;
         console.log(error);

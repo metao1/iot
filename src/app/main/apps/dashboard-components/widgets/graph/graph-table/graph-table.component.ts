@@ -114,10 +114,11 @@ export class GraphTableComponent implements OnInit {
         // graphData & graphLabels will be directed at configuration.graph.labels etc
         this.configuration.graph.data = [];
         this.configuration.graph.labels = [];
+        //console.log('length:'+ this.page.content.length)
         this.page.content.forEach(e => {
             this.configuration.graph.data.push(e.temperature); // built data for graph
-            //console.log('data:'+new Date( e.timestamp * 1000).toISOString());
-            this.configuration.graph.labels.push(new Date( e.timestamp * 1000).toISOString());      // built labels for graph
+            //console.log('data:'+new Date( e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
+            this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
 
         });
         this.updateTitle();
@@ -137,7 +138,8 @@ export class GraphTableComponent implements OnInit {
     }
 
     private updateTitle() {
-        this.title = this.configuration.datasource.dataType + '_' + this.configuration.datasource.timeSpan + '_' + this.configuration.datasource.calculation;
+        this.title = this.configuration.datasource.dataType + '_' + this.configuration.datasource.timeSpan + '_'
+            + this.configuration.datasource.calculation;
     }
 
     private updateTitleLabel() {

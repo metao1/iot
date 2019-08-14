@@ -43,13 +43,12 @@ export class RPiComponentFormComponent implements OnInit {
         console.log(JSON.stringify(value));
         this.onFormSubmit.emit(value);
         this.rPiComponentService.save(value)
-            .subscribe(
+            .then(
                 data => {
                     this.resetForm();
                     this.toasterService.toast("Component successfully added", ToastType.SUCCESS);
-                },
-                error => this.toasterService.toast("Error adding new component", ToastType.WARNING)
-            );
+                }
+            ).catch(error => this.toasterService.toast("Error adding new component", ToastType.WARNING));
     }
 
     resetForm() {

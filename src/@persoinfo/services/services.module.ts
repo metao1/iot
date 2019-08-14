@@ -8,10 +8,14 @@ import {TemperatureDataService} from "@persoinfo/services/temperature-data/tempe
 import {RPiComponentService} from "@persoinfo/services/rpicomponent/rpicomponent.service";
 import {RelayService} from "@persoinfo/services/relay/relay.service";
 import {HumidityDataService} from "@persoinfo/services/humidity-data/humidity-data.service";
+import {RPiService} from "@persoinfo/services/rpi/rpi.service";
+import {SettingsRPiComponentService} from "@persoinfo/services/rpi-settings/settings-rpicomponent.service";
+import {ProximitySensorService} from "@persoinfo/services/proximity-sensor/proximity-sensor.service";
 
 @NgModule({
     providers: [
         SseService,
+        ProximitySensorService,
         HumiditySensorService,
         MoistureSensorService,
         TemperatureSensorService,
@@ -19,6 +23,8 @@ import {HumidityDataService} from "@persoinfo/services/humidity-data/humidity-da
         HumidityDataService,
         RPiComponentService,
         NotificationService,
+        RPiService,
+        SettingsRPiComponentService,
         RelayService
     ]
 })

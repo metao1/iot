@@ -38,14 +38,13 @@ export class SettingsScheduleComponent extends PageLoading implements OnInit {
 
     saveSchedule(schedule: RelayScheduleJob) {
         this.relayScheduleService.save(schedule)
-            .subscribe(
+            .then(
                 data => {
                     this.schedules.push(data)
                     this.toasterService.toast("Schedule successfully saved", ToastType.SUCCESS);
                     this.resetForm();
-                },
-                error => this.toasterService.toast("Error saving schedule ", ToastType.WARNING)
-            );
+                }
+            ).then(error => this.toasterService.toast("Error saving schedule ", ToastType.WARNING));
     }
 
     updateSchedule(schedule: RelayScheduleJob) {
@@ -58,13 +57,12 @@ export class SettingsScheduleComponent extends PageLoading implements OnInit {
 
     deleteSchedule(id: number) {
         this.relayScheduleService.delete(id)
-            .subscribe(
+            .then(
                 data => {
                     this.removeSchedule(data);
                     this.toasterService.toast("Schedule successfully deleted", ToastType.SUCCESS);
-                },
-                error => this.toasterService.toast("Error deleting relaySubsc schedule")
-            );
+                }
+            ).then(error => this.toasterService.toast("Error deleting relay schedule: " + error));
     }
 
     toggleSchedule(schedule: RelayScheduleJob) {

@@ -41,10 +41,9 @@ export class SettingsRPiComponent implements OnInit {
 
     private deleteById(id: number) {
         this.rpiService.delete(id)
-            .subscribe(
+            .then(
                 data => this.loadAllRPi(),
-                error => console.log("error deleting rpi")
-            );
+            ).catch(error => console.log("error deleting rpi"));
     }
 
     private loadAllRPi() {
