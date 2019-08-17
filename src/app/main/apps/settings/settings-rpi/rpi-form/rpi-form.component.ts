@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {RPiService} from "@persoinfo/services/rpi/rpi.service";
-import {RPi} from "@persoinfo/model/rpi/rpi.model";
 
 @Component({
     selector: 'app-rpi-form',
@@ -16,11 +15,11 @@ export class RPiFormComponent implements OnInit {
     constructor(private router: Router, private rpiService: RPiService,
                 private formBuilder: FormBuilder) {
         this.form = formBuilder.group({
-            ip: ['', [
+            ip: ['10.0.0.1', [
                 Validators.required,
                 Validators.pattern("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$")
             ]],
-            port: ['', [
+            port: ['6000', [
                 Validators.required,
                 Validators.pattern("^([0-9]{0,5})$")
             ]],
@@ -45,8 +44,8 @@ export class RPiFormComponent implements OnInit {
         console.log('this is one');
     }
 
-    submit(value: RPi) {
-        this.rpiService.save(value)
+    submit() {
+        this.rpiService.save(this.form.getRawValue())
             .then(data => this.router.navigate(['/settings/rpi/', data.id]),
             ).catch(error => console.log("error saving raspberry pi"));
     }

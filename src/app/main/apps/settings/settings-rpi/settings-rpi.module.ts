@@ -18,13 +18,15 @@ import {RPiUploadImageComponent} from './rpi-upload-image/rpi-upload-image.compo
 import {RPiComponentFormComponent} from './rpicomponent-form/rpicomponent-form.component';
 import {RPiComponentAddComponent} from './rpicomponent-add/rpicomponent-add.component';
 import {ComponentsModule} from "@persoinfo/components/components.module";
+import {PersoInfoPipesModule} from "../../../../../@persoinfo/pipes/pipes.module";
 
 @NgModule({
-  imports: [
-    ComponentsModule,
-    FileUploadModule,
-    RouterModule.forChild(SETTINGS_RPI_ROUTES)
-  ],
+    imports: [
+        ComponentsModule,
+        FileUploadModule,
+        RouterModule.forChild(SETTINGS_RPI_ROUTES),
+        PersoInfoPipesModule
+    ],
   exports: [
     SettingsRPiComponent
   ],

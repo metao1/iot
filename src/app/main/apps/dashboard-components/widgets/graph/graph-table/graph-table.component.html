@@ -51,8 +51,8 @@
              (click)="$event.stopPropagation()">
           <app-graph-table-data
             [isLoading]="isLoading"
-            [configuration]="configuration.datasource"
-            (onUpdateData)="onUpdateData($event)">
+            (onUpdateData)="onUpdateData($event)"
+            [configuration]="configuration.datasource">
           </app-graph-table-data>
         </div>
       </div>
@@ -93,7 +93,7 @@
           <app-pageable-table
             *ngIf="configuration.table.visible"
             [page]="page"
-            [headings]="headings"
+            [headings]="onHeadingsChanged(headings)"
             (onPageChange)="pageChange($event)">
           </app-pageable-table>
         </div>

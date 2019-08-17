@@ -29,6 +29,8 @@ export class GraphTableComponent implements OnInit {
     title: string = '';
     titleLabel: string;
 
+    headings: string[];
+
     page: Page<any>;
     isLoading: boolean = true;
 
@@ -41,17 +43,34 @@ export class GraphTableComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.onPageChange.subscribe(pageChanged => {
+            console.log('page changed');
+        });
     }
 
     pageChange(page: number) {
         this.page.number = page;
         this.processDataRequest();
     }
-
-    onUpdateData(event: null) {
+    onUpdateData(event: string) {
         this.isLoading = true;
+        event = event.toLocaleLowerCase();
         if (this.page) this.page.number = 0;
-        this.processDataRequest();
+        console.log('event:' + this.configuration.datasource.dataType+':'+event)
+
+        switch (event) {
+            case MetricDataType.HUMIDITY.toString():
+                this.configuration.datasource.dataType = MetricDataType.HUMIDITY;
+                this.updateHumidityData();
+                break;
+            case MetricDataType.TEMPERATURE.toString():
+                this.configuration.datasource.dataType = MetricDataType.TEMPERATURE;
+                this.updateTemperatureData();
+                break;
+            default:
+                this.isLoading = false;
+
+        }
     }
 
     onChangeOrientation(orientation: OrientationType) {
@@ -75,13 +94,13 @@ export class GraphTableComponent implements OnInit {
             this.updateTemperatureData();
         else if (this.configuration.datasource.dataType === MetricDataType.HUMIDITY)
             this.updateHumidityData();
+        this.isLoading = false;
     }
 
     private updateTemperatureData() {
         let url: string = this.configuration.datasource.timeSpan + '/' + this.configuration.datasource.calculation;
         //console.log('update :' + JSON.stringify(this.configuration));
         //console.log('update :' + JSON.stringify(url));
-
         this.temperatureDataService
             .findCustomByComponent(this.configuration.datasource.component.id, url, this.page ? this.page.number : 0)
             .then(data => {
@@ -90,8 +109,7 @@ export class GraphTableComponent implements OnInit {
             }).catch(error => {
             console.log(JSON.stringify(error));
             this.toasterService.toast('Error retrieving humidity data', ToastType.DANGER);
-            this.isLoading = false;
-        });
+        }).then(() => this.isLoading = false);
     }
 
     private updateHumidityData() {
@@ -100,13 +118,11 @@ export class GraphTableComponent implements OnInit {
             .findCustomByComponent(this.configuration.datasource.component.id, url, this.page ? this.page.number : 0)
             .then(data => {
                     this.handleHumidityDataUpdate(data);
-                    this.isLoading = false;
                 }
             ).catch(error => {
-                this.toasterService.toast('Error retrieving temperature data', ToastType.DANGER);
-                this.isLoading = false;
-            }
-        );
+            this.toasterService.toast('Error retrieving temperature data', ToastType.DANGER);
+            this.isLoading = false;
+        }).then(() => this.isLoading = false);
     }
 
     private handleTemperatureDataUpdate(data: any) {
@@ -146,4 +162,8 @@ export class GraphTableComponent implements OnInit {
         this.titleLabel = this.configuration.datasource.component.alias;
     }
 
+    onHeadingsChanged(headings: string[]) {
+        this.headings = headings;
+        //console.log('heading changed to : '+ headings)
+    }
 }

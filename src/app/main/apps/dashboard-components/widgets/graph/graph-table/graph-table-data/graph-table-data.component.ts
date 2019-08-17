@@ -19,7 +19,7 @@ export class GraphTableDataComponent implements OnInit {
     private metricTimeSpanEnum = MetricTimeSpan;
 
     @Output()
-    onUpdateData: EventEmitter<null> = new EventEmitter<null>();
+    onUpdateData: EventEmitter<string> = new EventEmitter<string>();
 
     @Input()
     configuration: DataSourceConfiguration;
@@ -39,12 +39,12 @@ export class GraphTableDataComponent implements OnInit {
 
     ngOnInit() {
         this.rPiComponentService
-            .findAllByType(RPiComponentType.TEMPERATURE)
-            .then((data: RPiComponent[]) => {
-                    //console.log('components:', JSON.stringify(data));
+            .findAll(/*RPiComponentType.TEMPERATURE*/)
+            .then((data) => {
+                console.log('compontents:'+JSON.stringify( data));
                     this.components = data;
-                    this.configuration.component = this.components[0];
-                    this.updateData()
+                    this.configuration.component = this.components.find(s => s.type == RPiComponentType.TEMPERATURE);
+                    this.updateData(this.configuration.component.type.toString())
                 },
             ).catch(error => console.log("error getting graph-table-data components"));
     }
@@ -61,8 +61,8 @@ export class GraphTableDataComponent implements OnInit {
         this.configuration.component = component;
     }
 
-    updateData() {
-        this.onUpdateData.emit(null);
+    updateData(event: string) {
+        this.onUpdateData.emit(event);
     }
 
 }

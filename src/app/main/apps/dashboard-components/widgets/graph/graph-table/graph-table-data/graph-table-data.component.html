@@ -132,7 +132,7 @@
                     role="button"
                     class="btn btn-sm btn-success col-xs-12"
                     [disabled]="isLoading"
-                    (click)="updateData()">
+                    (click)="updateData(configuration.component.type.toString())">
                   <span *ngIf="!isLoading">Get Data</span>
                   <app-simple-loader
                       [isLoading]="isLoading"

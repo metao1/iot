@@ -4,8 +4,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RPiComponentService} from "@persoinfo/services/rpicomponent/rpicomponent.service";
 import {ToasterService} from "@persoinfo/components/toaster/toaster.service";
 import {RPiComponentFormComponent} from "app/main/apps/settings/settings-rpicomponent/rpicomponent-form/rpicomponent-form.component";
-import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
+import {ActivatedRoute} from "@angular/router";
+import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
+import {RPiPinDirection} from "../../../../../../@persoinfo/model/rpipin/rpi-pin-direction.enum";
 
 @Component({
     selector: 'app-rpicomponent-add',
@@ -22,30 +24,42 @@ export class RPiComponentAddComponent implements OnInit {
         submitLabel: 'Create',
         isClearable: true
     };
+    rPiComponentType = RPiComponentType;
+    rPiPinDirection = RPiPinDirection;
 
     constructor(
+        private route: ActivatedRoute,
         private rPiComponentService: RPiComponentService,
         private toasterService: ToasterService, private formBuilder: FormBuilder) {
         this.form = formBuilder.group({
-            ip: ['', [
-                Validators.required,
-                Validators.pattern("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$")
+            pin: formBuilder.group({
+                number: ['', [
+                    Validators.required,
+                    Validators.pattern("^([1-9]{1})([0-9]{0,3})$")
+                ]],
+                direction: ['', [
+                    Validators.required
+                ]],
+                description: ['', [
+                    Validators.required
+                ]]
+            }),
+            rpiId: ['', [
+                Validators.required
             ]],
-            pin: ['', [
-                Validators.required,
-                Validators.pattern("^([1-9]{1})([0-9]{0,3})$")
+            alias: ['', [
+                Validators.required
             ]],
             type: ['', Validators.required]
         });
     };
 
     ngOnInit() {
-        console.log('this is two');
+        this.form.get('rpiId').setValue(window.location.pathname.split('/')[3]);
     }
 
-    submit(component: RPiComponent) {
-        console.log(component);
-        this.rPiComponentService.save(component)
+    submit() {
+        this.rPiComponentService.save(this.form.getRawValue())
             .then(data => {
                     this.toasterService.toast("Component successfully added", ToastType.SUCCESS);
                 }
