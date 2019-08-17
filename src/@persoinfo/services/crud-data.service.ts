@@ -56,22 +56,20 @@ export class CrudDataService<T, ID> implements CrudDataOperations<T, ID> {
             console.log('getting all:' + SERVER_API_URL + url);
             this.http.get<Page<T>>(SERVER_API_URL + url)
                 .subscribe(data => {
-                        //console.log('find custome: '+ JSON.stringify(data));
-                        resolve(data)
-                    },error => reject(this.handleError(error)));
+                    //console.log('find custome: '+ JSON.stringify(data));
+                    resolve(data)
+                }, error => reject(this.handleError(error)));
         });
     }
 
     protected handleError(error: Response | any) {
         let msg: any;
-        console.log(error);
         if (error instanceof Response) {
             msg = error.json() || '';
         } else {
             msg = error.message ? error.message : error.toString();
         }
-
-        return Observable.throw(msg);
+        console.log(error + ':' + msg);
     }
 
 }

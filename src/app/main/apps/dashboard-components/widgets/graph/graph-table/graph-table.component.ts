@@ -52,12 +52,12 @@ export class GraphTableComponent implements OnInit {
         this.page.number = page;
         this.processDataRequest();
     }
+
     onUpdateData(event: string) {
         this.isLoading = true;
         event = event.toLocaleLowerCase();
         if (this.page) this.page.number = 0;
-        console.log('event:' + this.configuration.datasource.dataType+':'+event)
-
+        console.log('event:' + this.configuration.datasource.dataType + ':' + event)
         switch (event) {
             case MetricDataType.HUMIDITY.toString():
                 this.configuration.datasource.dataType = MetricDataType.HUMIDITY;
@@ -107,8 +107,9 @@ export class GraphTableComponent implements OnInit {
                 this.handleTemperatureDataUpdate(data);
                 this.isLoading = false;
             }).catch(error => {
+            this.isLoading = false;
             console.log(JSON.stringify(error));
-            this.toasterService.toast('Error retrieving humidity data', ToastType.DANGER);
+            this.toasterService.toast('Error retrieving temperature data', ToastType.DANGER);
         }).then(() => this.isLoading = false);
     }
 
@@ -118,8 +119,10 @@ export class GraphTableComponent implements OnInit {
             .findCustomByComponent(this.configuration.datasource.component.id, url, this.page ? this.page.number : 0)
             .then(data => {
                     this.handleHumidityDataUpdate(data);
+                    this.isLoading = false;
                 }
             ).catch(error => {
+            this.isLoading = false;
             this.toasterService.toast('Error retrieving temperature data', ToastType.DANGER);
             this.isLoading = false;
         }).then(() => this.isLoading = false);
