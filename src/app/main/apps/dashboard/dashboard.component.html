@@ -4,18 +4,8 @@
     </div>
     <div class="row" *ngIf="!isLoading">
 
-        <!-- BUTTON : Dasboard Builder - fixed in lower left -->
-        <div id="dashboard-builder-button">
-            <button
-                class="btn btn-sm btn-default"
-                [routerLink]="['/dashboard/builder']">
-                <i class="fa fa-wrench"></i>
-                Dashboard Builder
-            </button>
-        </div>
-
         <!-- BEGIN : LEFT SIDE COLUMN -->
-        <div class="col-sm-12 col-md-4 col-lg-2">
+        <div class="col-sm-1 col-md-3 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side navbar-adjustment">
                 <div class="container">
                     <div class="navbar-collapse">
@@ -44,41 +34,41 @@
         <!-- END : LEFT SIDE COLUMN -->
 
         <!-- BEGIN : CENTER COLUMN -->
-        <div class="col-sm-12 col-md-8 col-lg-10">
+        <div class="col-sm-12 col-md-offset-0 col-md-6">
             <div id="content" class="navbar-adjustment">
                 <!-- CONTENT WILL GO HERE : GRAPHS, TABLES ETC -->
 
                 <!-- BEGIN: Main Graph-Table Component -->
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div>
                         <app-graph-table>
                         </app-graph-table>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4 col-lg-2">
-                <nav class="navbar navbar-default navbar-fixed-side navbar-adjustment">
-                    <div class="container">
-                        <div class="navbar-collapse">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <app-simple-reading
-                                        [atrib]="'temperature'"></app-simple-reading>
-                                </div>
-                                <div class="row">
-                                    <app-simple-reading
-                                        [atrib]="'humidity'"></app-simple-reading>
-                                </div>
-                                <div class="row">
-                                    <app-simple-reading
-                                        [atrib]="'moisture'"></app-simple-reading>
-                                </div>
+        </div>
+        <!-- END : RIGHT SIDE  COLUMN -->
+        <div class="col-sm-3 col-md-offset-0">
+            <nav class="panel-body-list navbar navbar-right navbar-fixed-side navbar-adjustment">
+                <div class="container">
+                    <div class="navbar-collapse">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <app-simple-reading
+                                    [atrib]="'temperature'"></app-simple-reading>
+                            </div>
+                            <div class="row">
+                                <app-simple-reading
+                                    [atrib]="'humidity'"></app-simple-reading>
+                            </div>
+                            <div class="row">
+                                <app-simple-reading
+                                    [atrib]="'moisture'"></app-simple-reading>
                             </div>
                         </div>
                     </div>
-                </nav>
-            </div>
+                </div>
+            </nav>
         </div>
-        <!-- END : CENTER COLUMN -->
     </div>
 </div>
