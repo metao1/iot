@@ -13,6 +13,8 @@ import {RowConfiguration} from '@persoinfo/model/dashboard/configuration/row/row
 import {SensorWidget} from '@persoinfo/model/dashboard/configuration/widget/sensor/sensor-widget.model';
 import {SensorWidgetType} from '@persoinfo/model/dashboard/configuration/widget/sensor/sensor-widget-type.enum';
 import {TabletWidth} from '@persoinfo/model/dashboard/configuration/column/tablet-width.enum';
+import {SimpleReadingColor} from "./configuration/widget/sensor/simple-reading/simple-reading-color.enum";
+import {SensorReadingType} from "./configuration/shared/sensor-reading-type.enum";
 
 const dashboard = new Dashboard("Default Dashboard", LayoutPresets.fixedLeftPanelLayout);
 
@@ -39,8 +41,7 @@ function generateReadingsList(row: Row) {
   );
   col.configuration.widgets.push(
     new SensorWidget(
-      SensorWidgetType.READINGS_LIST, new ReadingsListConfiguration()
-    )
+      SensorWidgetType.READINGS_LIST,SimpleReadingColor.GREEN,SensorReadingType.MOISTURE,null)
   );
   row.configuration.columns.push(col);
 }
