@@ -17,7 +17,7 @@
                     [ngModel]="selectedComponent"
                     [ngModelOptions]="{standalone: true}" name="component"
                     (ngModelChange)="changeSelectedComponent($event)">
-                  <option *ngFor="let component of components" [ngValue]="component">
+                  <option *ngFor="let component of rPiComponentService.components" [ngValue]="component">
                     {{ component.alias }}
                   </option>
                 </select>

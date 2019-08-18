@@ -12,10 +12,13 @@
     <tr *ngFor="let d of data">
         <td>{{d.id}}</td>
         <td>{{ d.timestamp | date:'short' }}</td>
-        <td>{{ d.temperature }}</td>
+        <td *ngIf="d.humidity">{{ d.humidity }}</td>
+        <td *ngIf="d.moisture">{{ d.moisture }}</td>
+        <td *ngIf="d.temperature">{{ d.temperature }}</td>
         <td>{{ d.component.alias }}</td>
         <!-- HACK: NEED TO FIX -->
         <td *ngIf="d.moisture">{{ d.moisture }}</td>
+        <td *ngIf="d.humidity">{{ d.humidity }}</td>
         <td *ngIf="d.humidity">{{ d.humidity }}</td>
     </tr>
     </tbody>

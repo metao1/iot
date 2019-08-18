@@ -160,8 +160,7 @@ export class GraphTableComponent implements OnInit {
         //console.log('length:'+ this.page.content.length)
         this.page.content.forEach(e => {
             this.configuration.graph.data.push(e.temperature); // built data for graph
-            //console.log('data:'+new Date( e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
-            this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
+            this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
 
         });
         this.updateTitle();
@@ -176,7 +175,6 @@ export class GraphTableComponent implements OnInit {
         //console.log('length:'+ this.page.content.length)
         this.page.content.forEach(e => {
             this.configuration.graph.data.push(e.moisture); // built data for graph
-            //console.log('data:'+new Date( e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
             this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
 
         });
@@ -190,7 +188,7 @@ export class GraphTableComponent implements OnInit {
         this.configuration.graph.labels = [];
         this.page.content.forEach(e => {
             this.configuration.graph.data.push(e.humidity); // built data for graph
-            this.configuration.graph.labels.push(e.timestamp.getDate().toString());      // built labels for graph
+            this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
         });
         this.updateTitle();
         this.updateTitleLabel();

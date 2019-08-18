@@ -46,5 +46,13 @@ export class DashboardComponent extends PageLoading implements OnInit {
                 }
             );
 
+        this.rpiComponentService
+            .findAllByType(RPiComponentType.MOISTURE)
+            .then((data: RPiComponent[]) => {
+                    this.sensorWidgets.push(new SensorWidget(SensorWidgetType.SIMPLE_SENSOR,
+                        SimpleReadingColor.ORANGE, SensorReadingType.MOISTURE, data[0]));
+                }
+            );
+
     }
 }
