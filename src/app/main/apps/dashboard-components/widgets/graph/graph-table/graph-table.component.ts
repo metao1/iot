@@ -9,6 +9,7 @@ import {TemperatureDataService} from "@persoinfo/services/temperature-data/tempe
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 import {ToasterService} from "@persoinfo/components/toaster/toaster.service";
 import {HumidityDataService} from "@persoinfo/services/humidity-data/humidity-data.service";
+import {MoistureDataService} from "@persoinfo/services/moisture-service/moisture-data.service";
 
 @Component({
     selector: 'app-graph-table',
@@ -35,8 +36,9 @@ export class GraphTableComponent implements OnInit {
     isLoading: boolean = true;
 
     constructor(
-        private temperatureDataService: TemperatureDataService,
         private toasterService: ToasterService,
+        private temperatureDataService: TemperatureDataService,
+        private moistureDataService: MoistureDataService,
         private humidityDataService: HumidityDataService
     ) {
         this.configuration = new GraphTableConfiguration();
@@ -57,7 +59,7 @@ export class GraphTableComponent implements OnInit {
         this.isLoading = true;
         event = event.toLocaleLowerCase();
         if (this.page) this.page.number = 0;
-        console.log('event:' + this.configuration.datasource.dataType + ':' + event)
+        //console.log('event:' + this.configuration.datasource.dataType + ':' + event)
         switch (event) {
             case MetricDataType.HUMIDITY.toString():
                 this.configuration.datasource.dataType = MetricDataType.HUMIDITY;
@@ -66,6 +68,10 @@ export class GraphTableComponent implements OnInit {
             case MetricDataType.TEMPERATURE.toString():
                 this.configuration.datasource.dataType = MetricDataType.TEMPERATURE;
                 this.updateTemperatureData();
+                break;
+            case MetricDataType.MOISTURE.toString():
+                this.configuration.datasource.dataType = MetricDataType.MOISTURE;
+                this.updateMoistureData();
                 break;
             default:
                 this.isLoading = false;
@@ -94,6 +100,8 @@ export class GraphTableComponent implements OnInit {
             this.updateTemperatureData();
         else if (this.configuration.datasource.dataType === MetricDataType.HUMIDITY)
             this.updateHumidityData();
+        else if (this.configuration.datasource.dataType === MetricDataType.MOISTURE)
+            this.updateMoistureData();
         this.isLoading = false;
     }
 
@@ -110,6 +118,22 @@ export class GraphTableComponent implements OnInit {
             this.isLoading = false;
             console.log(JSON.stringify(error));
             this.toasterService.toast('Error retrieving temperature data', ToastType.DANGER);
+        }).then(() => this.isLoading = false);
+    }
+
+    private updateMoistureData() {
+        let url: string = this.configuration.datasource.timeSpan + '/' + this.configuration.datasource.calculation;
+        //console.log('update :' + JSON.stringify(this.configuration));
+        //console.log('update :' + JSON.stringify(url));
+        this.moistureDataService
+            .findCustomByComponent(this.configuration.datasource.component.id, url, this.page ? this.page.number : 0)
+            .then(data => {
+                this.handleMoistureDataUpdate(data);
+                this.isLoading = false;
+            }).catch(error => {
+            this.isLoading = false;
+            console.log(JSON.stringify(error));
+            this.toasterService.toast('Error retrieving moisture data', ToastType.DANGER);
         }).then(() => this.isLoading = false);
     }
 
@@ -136,6 +160,22 @@ export class GraphTableComponent implements OnInit {
         //console.log('length:'+ this.page.content.length)
         this.page.content.forEach(e => {
             this.configuration.graph.data.push(e.temperature); // built data for graph
+            //console.log('data:'+new Date( e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
+            this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
+
+        });
+        this.updateTitle();
+        this.updateTitleLabel();
+    }
+
+    private handleMoistureDataUpdate(data: any) {
+        this.page = data;
+        // graphData & graphLabels will be directed at configuration.graph.labels etc
+        this.configuration.graph.data = [];
+        this.configuration.graph.labels = [];
+        //console.log('length:'+ this.page.content.length)
+        this.page.content.forEach(e => {
+            this.configuration.graph.data.push(e.moisture); // built data for graph
             //console.log('data:'+new Date( e.timestamp).toISOString().slice(0, 19).replace('T', ' '));
             this.configuration.graph.labels.push(new Date(e.timestamp).toISOString().slice(0, 19).replace('T', ' '));      // built labels for graph
 

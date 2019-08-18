@@ -3,15 +3,16 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {CrudService} from '../crud.service';
+import {CrudService} from '@persoinfo/services/crud.service';
 import {HttpClient} from "@angular/common/http";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
 import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 import {RelayDTO} from "@persoinfo/model/rpicomponent/relay/relaydto.model";
-import {BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class RPiComponentService extends CrudService<RPiComponent, number> {
+
+    public components: RPiComponent[];
 
     constructor(http: HttpClient) {
         super('/component', http, null);

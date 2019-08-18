@@ -18,7 +18,7 @@ import {RPiUploadImageComponent} from './rpi-upload-image/rpi-upload-image.compo
 import {RPiComponentFormComponent} from './rpicomponent-form/rpicomponent-form.component';
 import {RPiComponentAddComponent} from './rpicomponent-add/rpicomponent-add.component';
 import {ComponentsModule} from "@persoinfo/components/components.module";
-import {PersoInfoPipesModule} from "../../../../../@persoinfo/pipes/pipes.module";
+import {PersoInfoPipesModule} from "@persoinfo/pipes/pipes.module";
 
 @NgModule({
     imports: [

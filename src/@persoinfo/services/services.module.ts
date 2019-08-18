@@ -11,12 +11,14 @@ import {HumidityDataService} from "@persoinfo/services/humidity-data/humidity-da
 import {RPiService} from "@persoinfo/services/rpi/rpi.service";
 import {SettingsRPiComponentService} from "@persoinfo/services/rpi-settings/settings-rpicomponent.service";
 import {ProximitySensorService} from "@persoinfo/services/proximity-sensor/proximity-sensor.service";
+import {MoistureDataService} from "@persoinfo/services/moisture-service/moisture-data.service";
 
 @NgModule({
     providers: [
         SseService,
         ProximitySensorService,
         HumiditySensorService,
+        MoistureDataService,
         MoistureSensorService,
         TemperatureSensorService,
         TemperatureDataService,

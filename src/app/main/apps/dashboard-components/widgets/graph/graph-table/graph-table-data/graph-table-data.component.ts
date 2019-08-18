@@ -27,8 +27,6 @@ export class GraphTableDataComponent implements OnInit {
     @Input()
     isLoading: boolean = true;
 
-    private components: RPiComponent[];
-
     selectedComponent: RPiComponent;
 
     constructor(
@@ -39,11 +37,12 @@ export class GraphTableDataComponent implements OnInit {
 
     ngOnInit() {
         this.rPiComponentService
-            .findAll(/*RPiComponentType.TEMPERATURE*/)
+            .findAll()
             .then((data) => {
                 console.log('compontents:'+JSON.stringify( data));
-                    this.components = data;
-                    this.configuration.component = this.components.find(s => s.type == RPiComponentType.TEMPERATURE);
+                    this.rPiComponentService.components = data;
+                    this.configuration.component = this.rPiComponentService.components
+                        .find(s => s.type == RPiComponentType.TEMPERATURE);
                     this.updateData(this.configuration.component.type.toString())
                 },
             ).catch(error => console.log("error getting graph-table-data components"));

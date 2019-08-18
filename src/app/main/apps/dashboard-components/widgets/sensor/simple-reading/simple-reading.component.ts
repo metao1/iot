@@ -2,6 +2,8 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {SensorReadingType} from "@persoinfo/model/dashboard/configuration/shared/sensor-reading-type.enum";
 import {SimpleReadingConfiguration} from "@persoinfo/model/dashboard/configuration/widget/sensor/simple-reading/simple-reading.configuration";
 import {SseService} from "@persoinfo/services/sse/sse.service";
+import {SimpleReadingColor} from "@persoinfo/model/dashboard/configuration/widget/sensor/simple-reading/simple-reading-color.enum";
+import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 
 @Component({
     selector: 'app-simple-reading',
@@ -16,14 +18,19 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
 
     @Input() atrib: string;
 
+    @Input() sensorType: SensorReadingType;
+
+    @Input() color: SimpleReadingColor;
+
+    @Input() component: RPiComponent;
+
     private subscription;
 
     constructor(private sseService: SseService) {
-
     }
 
     ngOnInit() {
-        this.configuration = new SimpleReadingConfiguration(this.atrib);
+        this.configuration = new SimpleReadingConfiguration(this.component, this.sensorType, this.color);
         switch (this.atrib) {
             case SensorReadingType.HUMIDITY.toString().toLowerCase():
                 this.subscribeToHumidityEvents();
@@ -32,12 +39,8 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                 this.subscribeToMoistureEvents();
                 break;
             case SensorReadingType.TEMPERATURE.toString().toLowerCase():
-              this.subscribeToTemperatureEvents();
-              break;
-            /*case SensorReadingType.PROXIMITY.toString().toLowerCase():
-              this.subscribeToProximityEvents();
-              break;
-           */
+                this.subscribeToTemperatureEvents();
+                break;
             default:
                 break;
         }
@@ -65,7 +68,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                         //console.log('moisture event simple-reading-component ', moisture);
                         this.handleMoistureEvents(moisture);
                     } catch (e) {
-
+                        console.error(e);
                     }
                 }
             );
@@ -79,7 +82,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                         //console.log('temperature event simple-reading-component ', temperature);
                         this.handleTemperatureEvents(temperature);
                     } catch (e) {
-
+                        console.error(e);
                     }
                 }
             );
@@ -91,7 +94,6 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     }
 
     private handleTemperatureEvents(object) {
-        //console.log(this.configuration.component.id);
         if (this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.temperature;
     }
