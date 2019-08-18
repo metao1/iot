@@ -5,6 +5,12 @@
   z-index: 10000;
 }
 
+nav.panel-body-list {
+    list-style: none;
+    background: #546575;
+    margin: 0;
+}
+
 .dropshadow {
   -webkit-box-shadow: -5px 4px 12px 0px rgba(0,0,0,0.46);
   -moz-box-shadow: -5px 4px 12px 0px rgba(0,0,0,0.46);

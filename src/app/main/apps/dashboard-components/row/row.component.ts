@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RowConfiguration} from "@persoinfo/model/dashboard/configuration/row/row.configuration";
 import {Column} from "@persoinfo/model/dashboard/configuration/column/column.model";
 
@@ -7,7 +7,7 @@ import {Column} from "@persoinfo/model/dashboard/configuration/column/column.mod
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.css']
 })
-export class RowComponent implements OnInit {
+export class RowComponent implements OnInit, OnDestroy {
 
   @Input()
   columns: Array<Column>;
@@ -20,6 +20,10 @@ export class RowComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngOnDestroy(): void {
+
+  }
 
 }
 

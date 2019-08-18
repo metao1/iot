@@ -73,10 +73,7 @@
       <div class="row">
 
         <!-- GRAPH COMPONENT -->
-        <div class="col-sm-12"
-             [ngClass]="{'col-md-6' :
-                           (configuration.orientation === orientationTypeEnum.INLINE) &&
-                           (configuration.graph.visible && configuration.table.visible) }">
+        <div>
           <app-graph
             *ngIf="configuration.graph.visible"
             [data]="configuration.graph.data"
@@ -84,12 +81,10 @@
             [graphType]="configuration.graph.type">
           </app-graph>
         </div>
-
+      </div>
+      <div class="row">
         <!-- PAGEABLE TABLE COMPONENT -->
-        <div class="col-xs-12"
-             [ngClass]="{'col-md-6' :
-                            (configuration.orientation === orientationTypeEnum.INLINE) &&
-                            (configuration.graph.visible && configuration.table.visible) }">
+        <div>
           <app-pageable-table
             *ngIf="configuration.table.visible"
             [page]="page"
@@ -99,7 +94,6 @@
         </div>
 
       </div><!-- END : Graph-Table Row -->
-
     </div> <!-- END : Panel Body -->
   </div> <!-- END : Panel -->
 </div><!-- END : COLUMN -->

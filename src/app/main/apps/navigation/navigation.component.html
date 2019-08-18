@@ -39,6 +39,12 @@
           Settings
         </a>
       </li>
+        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+            <a [routerLink]="['/dashboard/builder']">
+                <i class="fa fa-gears fa-icon-margin"></i>
+                Dashboard Builder
+            </a>
+        </li>
     </ul>
     <!-- END : LEFT NAVBAR BUTTONS -->
 
