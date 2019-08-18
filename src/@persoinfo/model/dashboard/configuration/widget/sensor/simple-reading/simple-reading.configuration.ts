@@ -13,8 +13,6 @@ export class SimpleReadingConfiguration {
         this.component = component;
         this.type = type;
         this.color = color;
-        console.log(JSON.stringify(this.component));
-
     }
 
     /*parseData(rPiComponent: RPiComponent): void {

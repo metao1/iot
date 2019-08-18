@@ -5,6 +5,8 @@ import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
 import {SimpleReadingColor} from "@persoinfo/model/dashboard/configuration/widget/sensor/simple-reading/simple-reading-color.enum";
 import {SensorReadingType} from "@persoinfo/model/dashboard/configuration/shared/sensor-reading-type.enum";
+import {SensorWidget} from "@persoinfo/model/dashboard/configuration/widget/sensor/sensor-widget.model";
+import {SensorWidgetType} from "@persoinfo/model/dashboard/configuration/widget/sensor/sensor-widget-type.enum";
 
 @Component({
     selector: 'app-dashboard',
@@ -14,10 +16,8 @@ import {SensorReadingType} from "@persoinfo/model/dashboard/configuration/shared
 export class DashboardComponent extends PageLoading implements OnInit {
 
     //todo add setting button over the widget and set these data dynamically
-    private temperatureComponent: RPiComponent;
-    private color: SimpleReadingColor = SimpleReadingColor.RED;
-    private type: SensorReadingType = SensorReadingType.TEMPERATURE;
-    
+    private sensorWidgets: SensorWidget[] = [];
+
     constructor(private  rpiComponentService: RPiComponentService) {
         super(true);
     }
@@ -28,12 +28,23 @@ export class DashboardComponent extends PageLoading implements OnInit {
             this.startOperations();
             this.ready()
         }, 1000);
-        //console.log(DASHBOARD_DEFAULT);
+        //
     }
 
     private startOperations() {
+        //console.log(DASHBOARD_DEFAULT);
         this.rpiComponentService
             .findAllByType(RPiComponentType.TEMPERATURE)
-            .then((data: RPiComponent[]) => this.temperatureComponent = data[0]);
+            .then((data: RPiComponent[]) => this.sensorWidgets.push(new SensorWidget(SensorWidgetType.SIMPLE_SENSOR,
+                SimpleReadingColor.RED, SensorReadingType.TEMPERATURE, data[0])));
+
+        this.rpiComponentService
+            .findAllByType(RPiComponentType.HUMIDITY)
+            .then((data: RPiComponent[]) => {
+                    this.sensorWidgets.push(new SensorWidget(SensorWidgetType.SIMPLE_SENSOR,
+                        SimpleReadingColor.GREEN, SensorReadingType.HUMIDITY, data[0]));
+                }
+            );
+
     }
 }

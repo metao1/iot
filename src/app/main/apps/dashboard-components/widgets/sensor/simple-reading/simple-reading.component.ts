@@ -31,14 +31,14 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.configuration = new SimpleReadingConfiguration(this.component, this.sensorType, this.color);
-        switch (this.atrib) {
-            case SensorReadingType.HUMIDITY.toString().toLowerCase():
+        switch (this.sensorType) {
+            case SensorReadingType.HUMIDITY:
                 this.subscribeToHumidityEvents();
                 break;
-            case SensorReadingType.MOISTURE.toString().toLowerCase():
+            case SensorReadingType.MOISTURE:
                 this.subscribeToMoistureEvents();
                 break;
-            case SensorReadingType.TEMPERATURE.toString().toLowerCase():
+            case SensorReadingType.TEMPERATURE:
                 this.subscribeToTemperatureEvents();
                 break;
             default:
@@ -51,7 +51,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
             .humidity
             .subscribe(humidity => {
                     try {
-                        //console.log('humidity event simple-reading-component ', humidity);
+                        console.log('humidity event simple-reading-component ', humidity);
                         this.handleHumidityEvents(humidity);
                     } catch (e) {
                         console.error(e);

@@ -53,12 +53,12 @@
                 <div class="container">
                     <div class="navbar-collapse">
                         <div class="container-fluid">
-                            <div class="row" *ngIf="temperatureComponent">
+                            <div class="row" *ngFor="let sensorWidget of sensorWidgets">
                                 <app-simple-reading
-                                    [component]="temperatureComponent"
-                                    [color]="color"
-                                    [sensorType]="type"
-                                    [atrib]="'temperature'"></app-simple-reading>
+                                    [component]="sensorWidget.sensorRpiComponent"
+                                    [color]="sensorWidget.color"
+                                    [sensorType]="sensorWidget.sensorReadingType">
+                                </app-simple-reading>
                             </div>
                             <!-- <div class="row">
                                  <app-simple-reading
