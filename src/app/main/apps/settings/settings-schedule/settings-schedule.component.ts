@@ -24,14 +24,18 @@ export class SettingsScheduleComponent extends PageLoading implements OnInit {
         private toasterService: ToasterService
     ) {
         super(true);
+        console.log('scheduler loaded');
     }
 
     ngOnInit() {
         this.relayScheduleService.findAll()
             .then(
-                data => this.schedules = data
+                data => {
+                    this.schedules = data;
+                    this.ready();
+                }
             ).catch(error => {
-            this.toasterService.toast("Error retrieving relaySubsc schedules", ToastType.WARNING);
+            this.toasterService.toast("Error retrieving relay schedules", ToastType.WARNING);
             this.ready();
         });
     }
@@ -40,7 +44,7 @@ export class SettingsScheduleComponent extends PageLoading implements OnInit {
         this.relayScheduleService.save(schedule)
             .then(
                 data => {
-                    this.schedules.push(data)
+                    this.schedules.push(data);
                     this.toasterService.toast("Schedule successfully saved", ToastType.SUCCESS);
                     this.resetForm();
                 }

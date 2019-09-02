@@ -30,7 +30,6 @@ import {LoginModule} from "app/main/login/login.module";
 import {ErrorHandlerInterceptor} from "@persoinfo/services/authentication/interceptor/errorhandler.interceptor";
 import {AuthExpiredInterceptor} from "@persoinfo/services/authentication/interceptor/auth-expired.interceptor";
 import {NotificationInterceptor} from "@persoinfo/services/authentication/interceptor/notification.interceptor";
-import {UserRouteAccessService} from "@persoinfo/services/authentication";
 import {AuthInterceptor} from "@persoinfo/services/authentication/interceptor/auth.interceptor";
 import {AppsModule} from "./main/apps/apps.module";
 import {DashboardModule} from "./main/apps/dashboard/dashboard.module";
@@ -39,44 +38,6 @@ const appRoutes: Routes = [
     {
         path: 'login',
         loadChildren: 'app/main/login/login.module#LoginModule'
-    }/*,
-    {
-        path: 'dashboard',
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'dashboard.title'
-        },
-        loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule',
-        canActivate: [UserRouteAccessService]
-
-    },*//*
-    {
-        path: 'scheduling',
-        data: {
-            authorities: ['ROLE_USER'],
-            pageTitle: 'dashboard.title'
-        },
-        loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule',
-        canActivate: [UserRouteAccessService]
-
-    },*/
-    /*{
-        path: 'settings',
-        data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'dashboard.title'
-        },
-        loadChildren: 'app/main/settings/settings.module#SettingsModule',
-        canActivate: [UserRouteAccessService]
-    },*/
-    , {
-        path: 'settings',
-        data: {
-            authorities: ['ROLE_ADMIN'],
-            pageTitle: 'dashboard.title'
-        },
-        loadChildren: 'app/main/apps/settings/settings.module#SettingsModule',
-        canActivate: [UserRouteAccessService]
     }
 ];
 

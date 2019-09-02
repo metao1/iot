@@ -16,6 +16,11 @@
             <i class="fa fa-sm fa-plus fa-icon-margin"></i>Add new node
           </a>
         </li>
+        <li class="panel-nav-list-item" [routerLinkActive]="['list-item-active']" [routerLinkActiveOptions]="{exact:true}">
+           <a [routerLink]="['/settings/schedule']">
+            <i class="fa fa-sm fa-plus fa-icon-margin"></i>Add scheduler
+           </a>
+        </li>
       </ul>
     </div>
     <!-- END : RPI NODES NAV SECTION -->

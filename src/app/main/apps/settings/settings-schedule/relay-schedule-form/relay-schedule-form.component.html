@@ -54,7 +54,7 @@
             <div class="input-group-addon input-icon-color input-sm">
               <i class="fa fa-clock-o"></i>
             </div>
-            <input class="form-control input-sm" id="time" type="text" placeholder="01:30 PM"formControlName="time"/>
+            <input class="form-control input-sm" id="time" type="text" placeholder="01:30 PM" formControlName="time"/>
           </div>
         </div>
 
@@ -88,8 +88,7 @@
       <button
           class="btn btn-success btn-sm"
           role="button"
-          type="submit"
-          [disabled]="!form.valid">
+          type="submit">
         {{ submitLabel }}
       </button>
       <button

@@ -5,18 +5,10 @@ import {SettingsUserComponent} from 'app/main/apps/settings/settings-user/settin
 export const SETTINGS_ROUTES = [
     {
         path: '',
-        component: SettingsComponent,
         children: [
             {
                 path: 'schedule',
-                component: SettingsComponent,
-                children: [
-                    {
-                        path: '',
-                        component: SettingsScheduleComponent,
-                        outlet: 'settings'
-                    }
-                ]
+                component: SettingsScheduleComponent
             },
             {
                 path: 'component',

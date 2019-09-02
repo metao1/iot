@@ -3,13 +3,18 @@ import {RouterModule} from '@angular/router';
 
 import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {EventManager} from "@persoinfo/event/EventManager";
-import {UserRouteAccessService} from "../../../@persoinfo/services/authentication";
+import {UserRouteAccessService} from "@persoinfo/services/authentication";
 
 const routes = [
-    /*{
+    {
         path: 'settings',
-        loadChildren: './settings/settings.module#SettingsModule'
-    },*/
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'dashboard.title'
+        },
+        loadChildren: 'app/main/apps/settings/settings.module#SettingsModule',
+        canActivate: [UserRouteAccessService]
+    },
     {
         path: 'dashboard',
         data: {

@@ -12,6 +12,7 @@ import {RPiService} from "@persoinfo/services/rpi/rpi.service";
 import {SettingsRPiComponentService} from "@persoinfo/services/rpi-settings/settings-rpicomponent.service";
 import {ProximitySensorService} from "@persoinfo/services/proximity-sensor/proximity-sensor.service";
 import {MoistureDataService} from "@persoinfo/services/moisture-service/moisture-data.service";
+import {RelayScheduleService} from "@persoinfo/services/relay/relay-schedule.service";
 
 @NgModule({
     providers: [
@@ -26,6 +27,7 @@ import {MoistureDataService} from "@persoinfo/services/moisture-service/moisture
         RPiComponentService,
         NotificationService,
         RPiService,
+        RelayScheduleService,
         SettingsRPiComponentService,
         RelayService
     ]
