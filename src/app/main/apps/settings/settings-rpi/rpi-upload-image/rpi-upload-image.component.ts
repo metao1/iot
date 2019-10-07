@@ -21,7 +21,7 @@ export class RPiUploadImageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.route.params.subscribe(
       params => {
-        this.url = SERVER_API_URL + 'rpi/' + params['id'] + '/image';
+        this.url = SERVER_API_URL + '/rpi/' + params['id'] + '/image';
       }
     );
     this.maxFilesInQueue = 1;
