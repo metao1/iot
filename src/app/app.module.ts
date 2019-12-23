@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
+import {NgModule, DoBootstrap, ApplicationRef} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -22,17 +22,27 @@ import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {persoInfoConfig} from 'app/persoinfo-config';
 import {AppComponent} from 'app/app.component';
 import {AppStoreModule} from 'app/store/store.module';
-import {NgxWebstorageModule} from "ngx-webstorage";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import {CommonModule} from "@angular/common";
-import {LoginModule} from "app/main/login/login.module";
-import {ErrorHandlerInterceptor} from "@persoinfo/services/authentication/interceptor/errorhandler.interceptor";
-import {AuthExpiredInterceptor} from "@persoinfo/services/authentication/interceptor/auth-expired.interceptor";
-import {NotificationInterceptor} from "@persoinfo/services/authentication/interceptor/notification.interceptor";
-import {AuthInterceptor} from "@persoinfo/services/authentication/interceptor/auth.interceptor";
-import {AppsModule} from "./main/apps/apps.module";
-import {DashboardModule} from "./main/apps/dashboard/dashboard.module";
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CommonModule} from '@angular/common';
+import {LoginModule} from 'app/main/login/login.module';
+import {AppsModule} from './main/apps/apps.module';
+import {DashboardModule} from './main/apps/dashboard/dashboard.module';
+import { KeycloakAngularModule, KeycloakOptions, KeycloakService } from 'keycloak-angular';
+import { environment } from 'environments/environment';
+
+const keycloakService = new KeycloakService();
+
+const keycloakOptions: KeycloakOptions = {
+    config: environment.keycloakConfig,
+    initOptions: { onLoad: 'check-sso', checkLoginIframe: false },
+    enableBearerInterceptor: true,
+    bearerExcludedUrls: [
+        // registration
+        { url: '/login', httpMethods: ['GET'] }
+    ],
+};
 
 const appRoutes: Routes = [
     {
@@ -48,11 +58,12 @@ const appRoutes: Routes = [
     imports: [
         CommonModule,
         BrowserModule,
+        KeycloakAngularModule,
         AppsModule,
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-        NgxWebstorageModule.forRoot({prefix: 'jhi', separator: '-'}),
+        NgxWebstorageModule.forRoot({prefix: 'iot', separator: '-'}),
         TranslateModule.forRoot(),
 
         // Material moment date module
@@ -75,37 +86,19 @@ const appRoutes: Routes = [
         PersoInfoModule.forRoot(persoInfoConfig),
         PersoInfoSharedModule,
         NgbModule,
-        //authentication module
+        // authentication module
         LoginModule,
         // App modules
         AppStoreModule,
         DashboardModule
     ],
-    bootstrap: [
-        AppComponent
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthExpiredInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ErrorHandlerInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: NotificationInterceptor,
-            multi: true
-        }
-    ]
+    providers: [{ provide: KeycloakService, useValue: keycloakService }],
 })
-export class AppModule {
+export class AppModule implements DoBootstrap {
+    ngDoBootstrap(appRef: ApplicationRef): void {
+        keycloakService
+            .init(keycloakOptions)
+            .then(() => appRef.bootstrap(AppComponent))
+            .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));
+    }
 }

@@ -5,11 +5,11 @@ import {LOGIN_ROUTING} from 'app/main/login/login.routing';
 
 import {LoginComponent} from 'app/main/login/login.component';
 import {LoginFormComponent} from './login-form/login-form.component';
-import {ComponentsModule} from "@persoinfo/components/components.module";
+import {ComponentsModule} from '@persoinfo/components/components.module';
 
 @NgModule({
   imports: [
-  	ComponentsModule,
+    ComponentsModule,
     RouterModule.forChild(LOGIN_ROUTING)
   ],
   exports: [LoginComponent],

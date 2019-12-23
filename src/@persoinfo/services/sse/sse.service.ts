@@ -29,7 +29,7 @@ export class SseService implements OnDestroy {
         this.events.addEventListener('message', message => {
             let json = JSON.parse(message.data);
             //console.log('message is ' + json.event);
-            //console.log('payload is ' + JSON.stringify(json.payload));
+            console.log('payload is ' + JSON.stringify(json.payload));
             switch (json.event) {
                 case 'temperature':
                     this.temperature.next(json.payload);

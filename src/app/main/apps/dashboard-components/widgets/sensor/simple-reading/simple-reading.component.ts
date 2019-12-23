@@ -54,7 +54,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                         console.log('humidity event simple-reading-component ', humidity);
                         this.handleHumidityEvents(humidity);
                     } catch (e) {
-                        console.error(e);
+                        console.log(e);
                     }
                 }
             );
@@ -68,7 +68,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                         //console.log('moisture event simple-reading-component ', moisture);
                         this.handleMoistureEvents(moisture);
                     } catch (e) {
-                        console.error(e);
+                        console.log(e);
                     }
                 }
             );
@@ -82,7 +82,7 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                         //console.log('temperature event simple-reading-component ', temperature);
                         this.handleTemperatureEvents(temperature);
                     } catch (e) {
-                        console.error(e);
+                        console.log(e);
                     }
                 }
             );

@@ -7,24 +7,24 @@ import {LoginService} from "@persoinfo/services/authentication/login/login.servi
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
-    constructor(private loginService: LoginService, private router: Router) {
-    }
+    constructor(private loginService: LoginService, private router: Router) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
-            tap(
-                (event: HttpEvent<any>) => {
-                },
-                (err: any) => {
-                    if (err instanceof HttpErrorResponse) {
-                        if (err.status === 401) {
-                            this.loginService.logout().then(() => {
-                                this.router.navigate(['/loginService/login']);
-                            });
-                        }
-                    }
-                }
-            )
-        );
+        tap((_: any)=> {
+            console.log(_);
+        }));
+        //     tap((err: any) => {
+        //             if (err instanceof HttpErrorResponse) {
+        //                 if (err.status === 401) {
+        //                     console.log('expired!');
+        //                     this.loginService.logout().then(() => {
+        //                         this.router.navigate(['/loginService/login']);
+        //                     });
+        //                 }
+        //             }
+        //         }
+        //     )
+        // );
     }
 }
