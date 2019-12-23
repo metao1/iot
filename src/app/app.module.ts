@@ -86,7 +86,6 @@ const appRoutes: Routes = [
         PersoInfoModule.forRoot(persoInfoConfig),
         PersoInfoSharedModule,
         NgbModule,
-        // authentication module
         LoginModule,
         // App modules
         AppStoreModule,
