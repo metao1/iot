@@ -1,6 +1,3 @@
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-
 export interface CrudOperations<T, ID> {
 	save(t: T): Promise<T>;
 	update(id: ID, t: T): Promise<T>;

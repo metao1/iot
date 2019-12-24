@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
 
 import {ToastMessage} from './toast-message.model';
 import {ToastType} from './toast-type.enum';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ToasterService {

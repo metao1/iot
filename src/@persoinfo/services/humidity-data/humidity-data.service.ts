@@ -1,6 +1,4 @@
 import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 import {HttpClient} from "@angular/common/http";
 import {Page} from "@persoinfo/model/paging/page.model";
 import {HumidityData} from "@persoinfo/model/humidity-data/humidity-data.model";

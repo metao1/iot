@@ -1,6 +1,5 @@
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 import {Page} from "../model/paging/page.model";
+import { Observable } from 'rxjs';
 
 export interface CrudDataOperations<T, ID> {
     findCustomByComponent(id: ID, path: string, page: number):  Promise<T>;

@@ -14,7 +14,7 @@ import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 })
 export class RPiComponentAddComponent implements OnInit {
 
-  @ViewChild(RPiComponentFormComponent) child: RPiComponentFormComponent;
+  @ViewChild(RPiComponentFormComponent, { static: false }) child: RPiComponentFormComponent;
 
   form: FormGroup;
 

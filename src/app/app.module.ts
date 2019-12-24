@@ -1,4 +1,4 @@
-import {NgModule, DoBootstrap, ApplicationRef} from '@angular/core';
+import {NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -14,7 +14,6 @@ import {
     MatSnackBarModule
 } from '@angular/material';
 import {TranslateModule} from '@ngx-translate/core';
-import 'hammerjs';
 
 import {PersoInfoModule} from '@persoinfo/perso-info.module';
 import {PersoInfoSharedModule} from '@persoinfo/shared.module';
@@ -31,24 +30,26 @@ import {AppsModule} from './main/apps/apps.module';
 import {DashboardModule} from './main/apps/dashboard/dashboard.module';
 import { KeycloakAngularModule, KeycloakOptions, KeycloakService } from 'keycloak-angular';
 import { environment } from 'environments/environment';
-
-const keycloakService = new KeycloakService();
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 const keycloakOptions: KeycloakOptions = {
     config: environment.keycloakConfig,
-    initOptions: { onLoad: 'check-sso', checkLoginIframe: false },
+    initOptions: { onLoad: 'login-required', checkLoginIframe: false },
     enableBearerInterceptor: true,
-    bearerExcludedUrls: [
-        // registration
-        { url: '/login', httpMethods: ['GET'] }
-    ],
 };
+const keycloakService = new KeycloakService();
 
 const appRoutes: Routes = [
     {
         path: 'login',
         loadChildren: 'app/main/login/login.module#LoginModule'
-    }
+    },
+    {
+        path: '',
+        loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule'
+    },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -62,6 +63,8 @@ const appRoutes: Routes = [
         AppsModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
+        StoreRouterConnectingModule.forRoot(),
         RouterModule.forRoot(appRoutes),
         NgxWebstorageModule.forRoot({prefix: 'iot', separator: '-'}),
         TranslateModule.forRoot(),
@@ -91,8 +94,15 @@ const appRoutes: Routes = [
         AppStoreModule,
         DashboardModule
     ],
-    providers: [{ provide: KeycloakService, useValue: keycloakService }],
+    entryComponents: [AppComponent],
+    providers: [
+        {
+          provide: KeycloakService,
+          useValue: keycloakService
+        }
+      ],
 })
+
 export class AppModule implements DoBootstrap {
     ngDoBootstrap(appRef: ApplicationRef): void {
         keycloakService

@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 
 import {CrudService} from '@persoinfo/services/crud.service';
 import {HttpClient} from "@angular/common/http";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
 import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 import {RelayDTO} from "@persoinfo/model/rpicomponent/relay/relaydto.model";
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class RPiComponentService extends CrudService<RPiComponent, number> {

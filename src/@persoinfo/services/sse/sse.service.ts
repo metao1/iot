@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {SERVER_API_URL} from "app/app.constants";
+import { BehaviorSubject } from 'rxjs';
 
 declare let EventSource: any;
 

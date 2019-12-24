@@ -1,13 +1,9 @@
 import {Injectable, OnDestroy} from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/catch';
 import {Page} from "@persoinfo/model/paging/page.model";
 import {CrudService} from "@persoinfo/services/crud.service";
 import {Notification} from '@persoinfo/model/notification/notification.model';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class NotificationService extends CrudService<Notification, number> implements OnDestroy {

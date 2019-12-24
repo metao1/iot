@@ -14,7 +14,7 @@ import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 })
 export class SettingsScheduleComponent extends PageLoading implements OnInit {
 
-    @ViewChild(RelayScheduleFormComponent) child: RelayScheduleFormComponent;
+    @ViewChild(RelayScheduleFormComponent, { static: false }) child: RelayScheduleFormComponent;
 
     schedules: Array<RelayScheduleJob>;
     scheduleType: string = "FIXED";

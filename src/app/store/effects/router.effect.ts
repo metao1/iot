@@ -9,47 +9,47 @@ import * as RouterActions from 'app/store/actions/router.action';
 @Injectable()
 export class RouterEffects
 {
-    /**
-     * Constructor
-     *
-     * @param {Actions} actions$
-     * @param {Router} router
-     * @param {Location} location
-     */
-    constructor(
-        private actions$: Actions,
-        private router: Router,
-        private location: Location
-    )
-    {
-    }
+    // /**
+    //  * Constructor
+    //  *
+    //  * @param {Actions} actions$
+    //  * @param {Router} router
+    //  * @param {Location} location
+    //  */
+    // constructor(
+    //     private actions$: Actions,
+    //     private router: Router,
+    //     private location: Location
+    // )
+    // {
+    // }
 
-    /**
-     * Navigate
-     */
-    @Effect({dispatch: false})
-    navigate$ = this.actions$.ofType(RouterActions.GO).pipe(
-        map((action: RouterActions.Go) => action.payload),
-        tap(({path, query: queryParams, extras}) => {
-            this.router.navigate(path, {queryParams, ...extras});
-        })
-    );
+    // /**
+    //  * Navigate
+    //  */
+    // @Effect({dispatch: false})
+    // navigate$ = this.actions$.ofType(RouterActions.GO).pipe(
+    //     map((action: RouterActions.Go) => action.payload),
+    //     tap(({path, query: queryParams, extras}) => {
+    //         this.router.navigate(path, {queryParams, ...extras});
+    //     })
+    // );
 
-    /**
-     * Navigate back
-     * @type {Observable<any>}
-     */
-    @Effect({dispatch: false})
-    navigateBack$ = this.actions$
-                        .ofType(RouterActions.BACK)
-                        .pipe(tap(() => this.location.back()));
+    // /**
+    //  * Navigate back
+    //  * @type {Observable<any>}
+    //  */
+    // @Effect({dispatch: false})
+    // navigateBack$ = this.actions$
+    //                     .ofType(RouterActions.BACK)
+    //                     .pipe(tap(() => this.location.back()));
 
-    /**
-     * Navigate forward
-     * @type {Observable<any>}
-     */
-    @Effect({dispatch: false})
-    navigateForward$ = this.actions$
-                           .ofType(RouterActions.FORWARD)
-                           .pipe(tap(() => this.location.forward()));
+    // /**
+    //  * Navigate forward
+    //  * @type {Observable<any>}
+    //  */
+    // @Effect({dispatch: false})
+    // navigateForward$ = this.actions$
+    //                        .ofType(RouterActions.FORWARD)
+    //                        .pipe(tap(() => this.location.forward()));
 }

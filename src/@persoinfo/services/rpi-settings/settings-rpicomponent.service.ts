@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs/Subject';
 
 import {CrudService} from '@persoinfo/services/crud.service';
 import {HumiditySensorService} from '@persoinfo/services/humidity-sensor/humidity-sensor.service';
@@ -12,6 +11,7 @@ import {ToasterService} from '@persoinfo/components/toaster/toaster.service';
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SettingsRPiComponentService {

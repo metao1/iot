@@ -2,7 +2,7 @@
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./src",
-        "outDir": "./persoinfo.github.io/out-tsc",
+        "outDir": "./dis/out-tsc",
         "sourceMap": true,
         "declaration": false,
         "moduleResolution": "node",

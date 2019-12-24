@@ -4,6 +4,7 @@ import {RouterModule} from '@angular/router';
 import {PersoInfoSharedModule} from '@persoinfo/shared.module';
 import {EventManager} from "@persoinfo/event/EventManager";
 import {UserRouteAccessService} from "@persoinfo/services/authentication";
+import { AuthGuard } from '@persoinfo/services/authentication/auth/auth-guard';
 
 const routes = [
     {
@@ -22,7 +23,7 @@ const routes = [
             pageTitle: 'dashboard.title'
         },
         loadChildren: 'app/main/apps/dashboard/dashboard.module#DashboardModule',
-        canActivate: [UserRouteAccessService]
+        canActivate: [AuthGuard]
 
     }
 ];

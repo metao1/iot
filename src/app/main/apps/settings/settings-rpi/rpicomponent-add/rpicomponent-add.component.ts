@@ -16,7 +16,7 @@ import {RPiPinDirection} from "../../../../../../@persoinfo/model/rpipin/rpi-pin
 })
 export class RPiComponentAddComponent implements OnInit {
 
-    @ViewChild(RPiComponentFormComponent) child: RPiComponentFormComponent;
+    @ViewChild(RPiComponentFormComponent, { static: false }) child: RPiComponentFormComponent;
 
     form: FormGroup;
 
