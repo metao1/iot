@@ -16,7 +16,7 @@ import {SensorWidgetType} from "@persoinfo/model/dashboard/configuration/widget/
 export class DashboardComponent extends PageLoading implements OnInit {
 
     //todo add setting button over the widget and set these data dynamically
-    private sensorWidgets: SensorWidget[] = [];
+    public sensorWidgets: SensorWidget[] = [];
 
     constructor(private  rpiComponentService: RPiComponentService) {
         super(true);

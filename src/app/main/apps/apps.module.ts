@@ -14,7 +14,7 @@ const routes = [
             pageTitle: 'dashboard.title'
         },
         loadChildren: 'app/main/apps/settings/settings.module#SettingsModule',
-        canActivate: [UserRouteAccessService]
+        canActivate: [AuthGuard]
     },
     {
         path: 'dashboard',

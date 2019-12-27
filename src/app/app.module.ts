@@ -1,6 +1,6 @@
 import {NgModule, DoBootstrap, ApplicationRef, APP_INITIALIZER} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
@@ -92,7 +92,11 @@ const appRoutes: Routes = [
         LoginModule,
         // App modules
         AppStoreModule,
-        DashboardModule
+        DashboardModule,
+        HttpClientXsrfModule.withOptions({
+            cookieName: 'XSRF-TOKEN',
+            headerName: 'X-XSRF-TOKEN',
+          }),
     ],
     entryComponents: [AppComponent],
     providers: [

@@ -1,7 +1,6 @@
 <div>
-    <app-navigation></app-navigation>
+    <app-navigation [isShown]= "isShown()" ></app-navigation>
     <router-outlet></router-outlet>
-    <app-toaster
-        [location]="toasterLocation.BOTTOM_RIGHT">
+    <app-toaster>
     </app-toaster>
 </div>

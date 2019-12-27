@@ -12,9 +12,9 @@ import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
 })
 export class SimpleReadingComponent implements OnInit, OnDestroy {
 
-    private sensorReadingType = SensorReadingType;
+    public sensorReadingType = SensorReadingType;
 
-    private configuration: SimpleReadingConfiguration;
+    public configuration?: SimpleReadingConfiguration;
 
     @Input() atrib: string;
 
@@ -89,22 +89,27 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     }
 
     private handleHumidityEvents(object) {
-        if (this.configuration.component.id === object.componentId)
+        if (object && 
+            this.configuration.component &&
+            this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.humidity;
     }
 
     private handleTemperatureEvents(object) {
-        if (this.configuration.component.id === object.componentId)
+        if (object && 
+            this.configuration.component && this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.temperature;
     }
 
     private handleProximityEvents(object) {
-        if (this.configuration.component.id === object.componentId)
+        if (object && 
+            this.configuration.component &&this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.distance;
     }
 
     private handleMoistureEvents(object) {
-        if (this.configuration.component.id === object.componentId)
+        if (object && 
+            this.configuration.component && this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.moisture;
     }
 

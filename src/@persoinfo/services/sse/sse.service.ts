@@ -1,6 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {SERVER_API_URL} from "app/app.constants";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
 
 declare let EventSource: any;
 
@@ -16,7 +17,7 @@ export class SseService implements OnDestroy {
 
     private events;
 
-    constructor() {
+    constructor(private readonly keycloakService: KeycloakService) {
         this.humidity = new BehaviorSubject([]);
         this.moisture = new BehaviorSubject([]);
         this.relay = new BehaviorSubject([]);
@@ -54,7 +55,6 @@ export class SseService implements OnDestroy {
             }
 
         });
-
     }
 
     ngOnDestroy() {

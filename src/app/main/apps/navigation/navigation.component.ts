@@ -1,7 +1,8 @@
 import {Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {LoginService} from "@persoinfo/services/authentication";
-import {Component, Input, OnInit} from '@angular/core';
+import {AuthServerProvider} from "@persoinfo/services/authentication";
+import {Component, OnInit, Input} from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-navigation',
@@ -19,26 +20,16 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-    show: boolean;
-
     constructor(
-        public auth: LoginService,
+        public auth: AuthServerProvider,
         public router: Router
-    ) {
-        this.show = true;
-    }
+    ) {}
 
     logout() {
         this.auth.logout();
-        this.router.navigate(['login']).catch(err => console.log('error log out:' + err.toString()));
     }
 
-    isShown() {
-        if (this.auth.isLoggedIn()) {
-            this.show = true;
-            return true;
-        }
-    }
+    @Input() isShown : boolean;
 
     goSetting() {
         this.router.navigate(['settings/component']).catch(err => console.log('error log out:' + err.toString()));

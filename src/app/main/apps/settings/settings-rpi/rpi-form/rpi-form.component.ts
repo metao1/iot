@@ -8,18 +8,18 @@ import {RPiService} from "@persoinfo/services/rpi/rpi.service";
     templateUrl: './rpi-form.component.html',
     styleUrls: ['./rpi-form.component.css']
 })
-export class RPiFormComponent implements OnInit {
+export class RPiFormComponent {
 
     form: FormGroup;
 
     constructor(private router: Router, private rpiService: RPiService,
                 private formBuilder: FormBuilder) {
         this.form = formBuilder.group({
-            ip: ['10.0.0.1', [
+            ip: ['127.0.0.1', [
                 Validators.required,
                 Validators.pattern("^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$")
             ]],
-            port: ['6000', [
+            port: ['1883', [
                 Validators.required,
                 Validators.pattern("^([0-9]{0,5})$")
             ]],
@@ -38,10 +38,6 @@ export class RPiFormComponent implements OnInit {
             ]],
             type: ['', Validators.required]
         });
-    }
-
-    ngOnInit() {
-        console.log('this is one');
     }
 
     submit() {
