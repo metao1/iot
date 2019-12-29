@@ -43,6 +43,8 @@
         "angular2-ui-switch": "^1.2.0",
         "chart.js": "^2.9.3",
         "classlist.js": "1.1.20150312",
+        "codelyzer": "^5.2.1",
+        "core-js": "2.5.7",
         "keycloak-angular": "^7.0.1",
         "keycloak-js": "^6.0.1",
         "moment": "^2.24.0",
@@ -52,8 +54,7 @@
         "ngx-webstorage": "^4.0.1",
         "rxjs": "^6.5.3",
         "web-animations-js": "^2.3.1",
-        "zone.js": "^0.8.29",
-        "core-js": "2.5.7"
+        "zone.js": "^0.8.29"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "^0.803.21",
