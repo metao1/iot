@@ -1,19 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.css']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
+    view: any;
+    onViewChange($event: string) {
 
-  constructor() {
-    console.log('initiating settings');
-  }
-
-  ngOnInit() {
-
-  }
-
+    }
 }

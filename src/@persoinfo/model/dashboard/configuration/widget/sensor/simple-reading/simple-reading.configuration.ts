@@ -15,8 +15,8 @@ export class SimpleReadingConfiguration {
         this.color = color;
     }
 
-    /*parseData(rPiComponent: RPiComponent): void {
-        switch (this.componentType) {
+    parseData(rPiComponent: RPiComponent): void {
+        switch (rPiComponent.type.toString()) {
             case 'humidity':
                 this.color = SimpleReadingColor.GREEN;
                 this.type = SensorReadingType.HUMIDITY;
@@ -33,5 +33,5 @@ export class SimpleReadingConfiguration {
                 this.component = rPiComponent;
                 break;
         }
-    }*/
+    }
 }

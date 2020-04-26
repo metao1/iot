@@ -53,7 +53,7 @@ export class CrudDataService<T, ID> implements CrudDataOperations<T, ID> {
     findCustomByComponent(id: ID, path: string, page: number): Promise<any> {
         return new Promise((resolve, reject) => {
             let url = this.base + id + this.component_type + path + '?page=' + page;
-            console.log('getting all:' + SERVER_API_URL + url);
+            //console.log('getting all:' + SERVER_API_URL + url);
             this.http.get<Page<T>>(SERVER_API_URL + url)
                 .subscribe(data => {
                     //console.log('find custome: '+ JSON.stringify(data));

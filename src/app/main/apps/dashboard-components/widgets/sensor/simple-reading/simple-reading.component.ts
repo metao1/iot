@@ -26,11 +26,14 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
 
     private subscription;
 
-    constructor(private sseService: SseService) {
-    }
+    constructor(private sseService: SseService) {}
 
     ngOnInit() {
         this.configuration = new SimpleReadingConfiguration(this.component, this.sensorType, this.color);
+        console.log(JSON.stringify(this.configuration.component));
+        if(!this.configuration){
+            this.configuration.component.alias = 'undef';
+        }
         switch (this.sensorType) {
             case SensorReadingType.HUMIDITY:
                 this.subscribeToHumidityEvents();

@@ -13,8 +13,6 @@ export class PanelListGroupComponent implements OnInit {
   @Input()
   heading: string;
 
-  constructor() { console.log(this.data); }
-
   ngOnInit() {
   }
 

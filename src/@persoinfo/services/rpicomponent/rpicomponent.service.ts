@@ -4,8 +4,6 @@ import {CrudService} from '@persoinfo/services/crud.service';
 import {HttpClient} from "@angular/common/http";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
 import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
-import {RelayDTO} from "@persoinfo/model/rpicomponent/relay/relaydto.model";
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class RPiComponentService extends CrudService<RPiComponent, number> {
@@ -24,20 +22,19 @@ export class RPiComponentService extends CrudService<RPiComponent, number> {
                 .subscribe(
                     data => {
                         resolve(data)
-                    },
-                    error => reject(this.handleError(error)));
+                    }, error => reject(this.handleError(error)));
         }));
     }
 
-    findAllRelays(): Observable<RelayDTO[]> {
-        /*return this.http.get(this.base + '/byType?type=' + RPiComponentType[RPiComponentType.RELAY], this.options)
-            .map(res => {
-                let json = res.json();
-                let temp: RelayDTO[] = json.map(e => new RelayDTO(e, null));
-                return temp;
-            })
-            .catch(this.handleError);*/
-        return undefined;
-    }
+    // findAllRelays(): Promise<RelayDTO[]> {
+    //     return new Promise(((resolve, reject) => {
+    //         this.http.get(this.base + '/byType?type=' + RPiComponentType[RPiComponentType.RELAY], this.options)
+    //             .map((res: Response) => res.json()))
+    //             .subscribe(res => {
+    //                 let temp: RelayDTO[] = res.map(e => new RelayDTO(e, null));
+    //                 resolve(temp);
+    //             }, error => reject(this.handleError(error)));
+    //     }));
+    // }
 
 }

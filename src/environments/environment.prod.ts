@@ -4,7 +4,7 @@ const keycloakConfig: KeycloakConfig = {
     url: 'http://localhost:8081/auth',
     clientId: 'iot-app',
     realm: 'iot',
-    credentials: { secret: '4039c7fa-e652-4fd3-98d3-10f900921275' },
+    credentials: { secret: '4e097db6-67db-465c-8533-61c5479ec0f8' },
 };
 
 export const environment = {

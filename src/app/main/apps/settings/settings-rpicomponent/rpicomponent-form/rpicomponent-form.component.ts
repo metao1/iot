@@ -40,7 +40,6 @@ export class RPiComponentFormComponent implements OnInit {
     }
 
     submit(value: any) {
-        console.log(JSON.stringify(value));
         this.onFormSubmit.emit(value);
         this.rPiComponentService.save(value)
             .then(

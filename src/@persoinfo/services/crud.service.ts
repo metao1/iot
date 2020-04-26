@@ -56,7 +56,7 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
 
     findAll(): Promise<any> {
         return new Promise((resolve, reject) => {
-            console.log('getting all:' + this.base);
+            //'getting all:' + this.base);
             this.http.get<T[]>(this.base)
                 .subscribe(
                     data => {
@@ -81,13 +81,11 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
 
     protected handleError(error: Response | any) {
         let msg: any;
-        console.log(error);
         if (error instanceof Response) {
             msg = error.json() || '';
         } else {
             msg = error.message ? error.message : error.toString();
         }
-
-        return Observable.throw(msg);
+        console.log(msg);
     }
 }
