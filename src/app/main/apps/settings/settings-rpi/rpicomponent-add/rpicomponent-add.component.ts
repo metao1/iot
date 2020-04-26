@@ -7,7 +7,7 @@ import {RPiComponentFormComponent} from "app/main/apps/settings/settings-rpicomp
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 import {ActivatedRoute} from "@angular/router";
 import {RPiComponentType} from "@persoinfo/model/rpicomponent/rpicomponent-type.enum";
-import {RPiPinDirection} from "../../../../../../@persoinfo/model/rpipin/rpi-pin-direction.enum";
+import {RPiPinDirection} from "@persoinfo/model/rpipin/rpi-pin-direction.enum";
 
 @Component({
     selector: 'app-rpicomponent-add',

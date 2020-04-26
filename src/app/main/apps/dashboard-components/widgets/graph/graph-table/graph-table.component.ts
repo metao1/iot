@@ -48,18 +48,24 @@ export class GraphTableComponent implements OnInit {
         this.onPageChange.subscribe(pageChanged => {
             console.log('page changed');
         });
+        this.lastPage()
+    }
+
+    lastPage() {
+        this.page.number = this.page.totalPages - 1;
+        this.processDataRequest();
     }
 
     pageChange(page: number) {
         this.page.number = page;
         this.processDataRequest();
+        this.lastPage();
     }
 
     onUpdateData(event: string) {
         this.isLoading = true;
         event = event.toLocaleLowerCase();
         if (this.page) this.page.number = 0;
-        //console.log('event:' + this.configuration.datasource.dataType + ':' + event)
         switch (event) {
             case MetricDataType.HUMIDITY.toString():
                 this.configuration.datasource.dataType = MetricDataType.HUMIDITY;
@@ -75,7 +81,6 @@ export class GraphTableComponent implements OnInit {
                 break;
             default:
                 this.isLoading = false;
-
         }
     }
 

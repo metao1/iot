@@ -47,7 +47,6 @@ export class CrudService<T, ID> implements CrudOperations<T, ID> {
             this.http.get<T>(this.base + "/" + id)
                 .subscribe(
                     data => {
-                        console.log(data);
                         resolve(data)
                     },
                     error => reject(this.handleError(error)));

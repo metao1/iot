@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SystemState} from "@persoinfo/model/rpi/system-state.enum";
 import {RPi} from "@persoinfo/model/rpi/rpi.model";
 import {RPiService} from "@persoinfo/services/rpi/rpi.service";
+import {RPiComponent} from "@persoinfo/model/rpicomponent/rpicomponent.model";
+import {RPiComponentService} from "@persoinfo/services/rpicomponent/rpicomponent.service";
 
 @Component({
     selector: 'app-rpi-details',
@@ -18,10 +20,12 @@ export class RPiDetailsComponent implements OnInit, OnDestroy {
     systemState = SystemState;
     baseImageUrl = "BASE_IMAGE_URL";
     rpi: RPi;
+    component: RPiComponent;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private rPiComponentService: RPiComponentService,
         private rpiService: RPiService
     ) {
     }
@@ -31,6 +35,7 @@ export class RPiDetailsComponent implements OnInit, OnDestroy {
             params => {
                 this.id = params['id'];
                 this.retrieveRPiDetails(this.id);
+                this.getComponents();
             }
         );
     }
@@ -40,14 +45,16 @@ export class RPiDetailsComponent implements OnInit, OnDestroy {
     }
 
     private retrieveRPiDetails(id: number) {
-        this.rpiService.findOne(this.id)
-            .then(data => this.rpi = data,
+        this.rpiService.findOne(id)
+            .then(data => {
+                    this.rpi = data;
+                },
                 () => {
                     if (!this.rpi)
                         this.router.navigate(['/settings/rpi']);
                 }
             ).catch(error => {
-            console.log("error get details:"+error);
+            console.log("error get details:" + error);
             this.router.navigate(['/settings/rpi']);
         });
     }
@@ -57,4 +64,11 @@ export class RPiDetailsComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
     }
 
+    private getComponents() {
+        this.rPiComponentService
+            .findAll()
+            .then((data) => {
+                this.component = data;
+            });
+    }
 }

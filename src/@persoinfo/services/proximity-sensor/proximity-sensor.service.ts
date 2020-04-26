@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
 export class ProximitySensorService extends CrudService<ProximitySensor, number> {
 
     constructor(http: HttpClient) {
-        super("component/proximity", http, null);
+        super("/component/proximity", http, null);
     }
 
 }

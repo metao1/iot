@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {RelayDTO} from "@persoinfo/model/rpicomponent/relay/relaydto.model";
 import {RelayState} from "@persoinfo/model/rpicomponent/relay/relay-state.enum";
 import {RelayService} from "@persoinfo/services/relay/relay.service";
@@ -11,16 +11,14 @@ import {SseService} from "@persoinfo/services/sse/sse.service";
 })
 export class RelaysComponent implements OnInit, OnDestroy {
 
-    private relays: Array<RelayDTO>;
+    @Input("relays") relays: Array<RelayDTO>;
     private relayState = RelayState;
     private _unsubscribeAll;
 
     constructor(
         private relayService: RelayService,
         private sseService: SseService
-    ) {
-        this.relays = new Array<RelayDTO>();
-    }
+    ) {}
 
     ngOnInit() {
         this.relayService.findAll()

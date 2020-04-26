@@ -26,12 +26,12 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
 
     private subscription;
 
-    constructor(private sseService: SseService) {}
+    constructor(private sseService: SseService) {
+    }
 
     ngOnInit() {
         this.configuration = new SimpleReadingConfiguration(this.component, this.sensorType, this.color);
-        console.log(JSON.stringify(this.configuration.component));
-        if(!this.configuration){
+        if (!this.configuration) {
             this.configuration.component.alias = 'undef';
         }
         switch (this.sensorType) {
@@ -43,6 +43,9 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
                 break;
             case SensorReadingType.TEMPERATURE:
                 this.subscribeToTemperatureEvents();
+                break;
+            case SensorReadingType.PROXIMITY:
+                this.subscribeToProximityEvents();
                 break;
             default:
                 break;
@@ -77,6 +80,20 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
             );
     }
 
+    private subscribeToProximityEvents() {
+        this.subscription = this.sseService
+            .moisture
+            .subscribe(proximity => {
+                    try {
+                        //console.log('proximity event simple-reading-component ', moisture);
+                        this.handleProximityEvents(proximity);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
+            );
+    }
+
     private subscribeToTemperatureEvents() {
         this.subscription = this.sseService
             .temperature
@@ -92,26 +109,26 @@ export class SimpleReadingComponent implements OnInit, OnDestroy {
     }
 
     private handleHumidityEvents(object) {
-        if (object && 
+        if (object &&
             this.configuration.component &&
             this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.humidity;
     }
 
     private handleTemperatureEvents(object) {
-        if (object && 
+        if (object &&
             this.configuration.component && this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.temperature;
     }
 
     private handleProximityEvents(object) {
-        if (object && 
-            this.configuration.component &&this.configuration.component.id === object.componentId)
+        if (object &&
+            this.configuration.component && this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.distance;
     }
 
     private handleMoistureEvents(object) {
-        if (object && 
+        if (object &&
             this.configuration.component && this.configuration.component.id === object.componentId)
             this.configuration.component.current = object.moisture;
     }

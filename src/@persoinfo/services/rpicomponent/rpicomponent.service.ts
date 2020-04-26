@@ -21,6 +21,7 @@ export class RPiComponentService extends CrudService<RPiComponent, number> {
             this.http.get<any>(url)
                 .subscribe(
                     data => {
+                        this.components = data;
                         resolve(data)
                     }, error => reject(this.handleError(error)));
         }));

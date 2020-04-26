@@ -7,39 +7,46 @@ import {ToasterService} from "@persoinfo/components/toaster/toaster.service";
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 
 @Component({
-  selector: 'app-rpicomponent-table',
-  templateUrl: './rpicomponent-table.component.html',
-  styleUrls: ['./rpicomponent-table.component.css']
+    selector: 'app-rpicomponent-table',
+    templateUrl: './rpicomponent-table.component.html',
+    styleUrls: ['./rpicomponent-table.component.css']
 })
 export class RPiComponentTableComponent implements OnInit, OnDestroy {
 
-  @Input()
-  components: Array<RPiComponent>;
+    @Input()
+    components: Array<RPiComponent>;
 
-  filter: RPiComponentType;
+    filter: RPiComponentType;
 
-  filterSubscription;
+    filterSubscription;
 
-  constructor(
-    private settingsRPiComponentService: SettingsRPiComponentService,
-    private toasterService: ToasterService
-  ) {}
+    constructor(
+        private settingsRPiComponentService: SettingsRPiComponentService,
+        private toasterService: ToasterService
+    ) {}
 
-  ngOnInit() {
-    this.filterSubscription = this.settingsRPiComponentService.componentFilter
-      .subscribe(
-        data => this.filter = data,
-        error => this.toasterService.toast("Error subscribing to component filter", ToastType.WARNING)
-      );
-  }
+    ngOnInit() {
+        this.filterSubscription = this.settingsRPiComponentService.componentFilter
+            .subscribe(
+                data => this.filter = data,
+                error => this.toasterService.toast("Error subscribing to component filter", ToastType.WARNING)
+            );
+    }
 
-  hover(component: RPiComponent) {
-    this.settingsRPiComponentService.setSelectedComponent(component);
-  }
+    hover(component: RPiComponent) {
+        this.settingsRPiComponentService.setSelectedComponent(component);
+    }
 
-  ngOnDestroy() {
-    if(this.filterSubscription)
-      this.filterSubscription.unsubscribe();
-  }
+    ngOnDestroy() {
+        if (this.filterSubscription)
+            this.filterSubscription.unsubscribe();
+    }
 
+    edit(id: string) {
+
+    }
+
+    delete(id: string) {
+
+    }
 }

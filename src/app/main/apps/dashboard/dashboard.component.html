@@ -3,9 +3,40 @@
         <app-page-loader></app-page-loader>
     </div>
     <div class="row" *ngIf="!isLoading">
+        <!-- TOP ROW -->
+        <div class="row">
+            <nav class="col-md-6 col-md-offset-0 col-md-12 navbar-adjustment">
+                <div class="container">
+                    <div class="navbar-collapse">
+                        <div class="container-fluid">
+                            <div class="col-md-1 col-lg-1" *ngFor="let sensorWidget of sensorWidgets">
+                                <app-simple-reading
+                                        [component]="sensorWidget.sensorRpiComponent"
+                                        [color]="sensorWidget.color"
+                                        [sensorType]="sensorWidget.sensorReadingType">
+                                </app-simple-reading>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- CENTER COLUMN -->
+        <div class="row">
+            <div id="content" class="col-sm-2 col-md-offset-1 col-md-6 navbar-adjustment">
+                <!-- CONTENT WILL GO HERE : GRAPHS, TABLES ETC -->
 
-        <!-- BEGIN : LEFT SIDE COLUMN -->
-        <div class="col-sm-1 col-md-3 col-lg-2">
+                <!-- BEGIN: Main Graph-Table Component -->
+                <div class="row">
+                    <div>
+                        <app-graph-table>
+                        </app-graph-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LEFT SIDE COLUMN -->
+        <div *ngIf="false" class="col-sm-1 col-md-3 col-lg-2">
             <nav class="navbar navbar-default navbar-fixed-side navbar-adjustment">
                 <div class="container">
                     <div class="navbar-collapse">
@@ -20,46 +51,12 @@
                             <!-- END : SENSOR READINGS -->
 
                             <!-- BEGIN : RELAY PANEL -->
-                            <div class="row">
+                            <div  class="row">
                                 <div class="col-xs-12">
                                     <app-relays></app-relays>
                                 </div>
                             </div>
                             <!-- END: RELAY PANEL -->
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <!-- END : LEFT SIDE COLUMN -->
-
-        <!-- BEGIN : CENTER COLUMN -->
-        <div class="col-sm-12 col-md-offset-0 col-md-6">
-            <div id="content" class="navbar-adjustment">
-                <!-- CONTENT WILL GO HERE : GRAPHS, TABLES ETC -->
-
-                <!-- BEGIN: Main Graph-Table Component -->
-                <div class="row">
-                    <div>
-                        <app-graph-table>
-                        </app-graph-table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END : RIGHT SIDE  COLUMN -->
-        <div class="col-sm-9 col-md-offset-0">
-            <nav class="panel-body-list navbar navbar-right navbar-fixed-side navbar-adjustment">
-                <div class="container">
-                    <div class="navbar-collapse">
-                        <div class="container-fluid">
-                            <div class="row" *ngFor="let sensorWidget of sensorWidgets">
-                                <app-simple-reading
-                                    [component]="sensorWidget.sensorRpiComponent"
-                                    [color]="sensorWidget.color"
-                                    [sensorType]="sensorWidget.sensorReadingType">
-                                </app-simple-reading>
-                            </div>
                         </div>
                     </div>
                 </div>

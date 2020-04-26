@@ -54,5 +54,13 @@ export class DashboardComponent extends PageLoading implements OnInit {
                 }
             );
 
+        this.rpiComponentService
+            .findAllByType(RPiComponentType.PROXIMITY)
+            .then((data: RPiComponent[]) => {
+                    this.sensorWidgets.push(new SensorWidget(SensorWidgetType.SIMPLE_SENSOR,
+                        SimpleReadingColor.BLUE, SensorReadingType.PROXIMITY, data[0]));
+                }
+            );
+
     }
 }

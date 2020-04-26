@@ -11,6 +11,7 @@ import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {ToastType} from "@persoinfo/components/toaster/toast-type.enum";
 import {TemperatureSensorService} from "@persoinfo/services/temperature-sensor/temperature-sensor.service";
+import {ProximitySensorService} from "../../../../../../../@persoinfo/services/proximity-sensor/proximity-sensor.service";
 
 @Component({
     selector: 'app-readings-list',
@@ -41,7 +42,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
         private humiditySensorService: HumiditySensorService,
         private temperatureSensorService: TemperatureSensorService,
         private moistureSensorService: MoistureSensorService,
-        /*private proximitySensorService: ProximitySensorService,*/
+        private proximitySensorService: ProximitySensorService,
         private toasterService: ToasterService
     ) {
         this._unsubscribeAll = new Subject();
@@ -55,8 +56,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
         this.retrieveHumiditySensors();
         this.retrieveMoistureSensors();
         this.retrieveTemperatureSensors();
-        /*this.retrieveProximitySensors();
-       */
+        this.retrieveProximitySensors();
     }
 
     toggleTemperatureUnit() {
@@ -75,7 +75,6 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
                 }
             }).catch(error => this.toasterService.toast('Unable to retrieve humidity sensors', ToastType.DANGER))
     }
-
 
     private retrieveMoistureSensors() {
         this.moistureSensorService.findAll()
@@ -97,6 +96,16 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             }).catch(error => this.toasterService.toast('Unable to retrieve temperature sensors', ToastType.DANGER))
     }
 
+    private retrieveProximitySensors() {
+        this.proximitySensorService.findAll()
+            .then((value) => {
+                if (value !== null) {
+                    this.proximity = value;
+                    this.subscribeToProximityEvents();
+                }
+            }).catch(error => this.toasterService.toast('Unable to retrieve proximity sensors', ToastType.DANGER))
+    }
+
     private subscribeToHumidityEvents() {
         this.sseService.humidity
             .pipe(takeUntil(this._unsubscribeAll))
@@ -113,7 +122,7 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(value => {
                     if (value !== null) {
-                       // console.log('value is :' + value);
+                        // console.log('value is :' + value);
                         this.handleMoistureEvent(value);
                     }
                 }
@@ -127,6 +136,18 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
                     if (value !== null) {
                         //console.log('value is :' + value);
                         this.handleTemperatureEvent(value);
+                    }
+                }
+            );
+    }
+
+    private subscribeToProximityEvents() {
+        this.sseService.proximity
+            .pipe(takeUntil(this._unsubscribeAll))
+            .subscribe(value => {
+                    if (value !== null) {
+                        //console.log('value is :' + value);
+                        this.handleProximityEvent(value);
                     }
                 }
             );
@@ -162,6 +183,16 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
         }
     }
 
+    private handleProximityEvent(data: any) {
+        //console.log('finding :' + data);
+        let obj: any = this.proximity.find(e => e.id === data.componentId);
+        //console.log('found :' + data.componentId);
+        //console.log('components :' + JSON.stringify(data.temperature));
+        if (obj) {
+            obj.current = data.proximity;
+        }
+    }
+
     ngOnDestroy() {
         // Unsubscribe from all subscriptions
         if (this.humiditySubscription)
@@ -170,6 +201,8 @@ export class ReadingsListComponent implements OnInit, OnDestroy {
             this.moistureSubscription.unsubscribe();
         if (this.temperatureSubscription)
             this.temperatureSubscription.unsubscribe();
+        if (this.proximitySubscription)
+            this.proximitySubscription.unsubscribe();
         this._unsubscribeAll.next();
         this._unsubscribeAll.complete();
     }
